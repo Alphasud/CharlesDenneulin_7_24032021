@@ -14,17 +14,17 @@ De : Sandra
 À : Moi
 Objet : Détails algo de recherche
 
-    Bonjour,
+Bonjour,
 
-    Je suis ravie de t’avoir dans l’équipe pour cette nouvelle étape du projet.
+Je suis ravie de t’avoir dans l’équipe pour cette nouvelle étape du projet.
 
-    Comme tu le sais, les sites offrant des recettes de cuisine sont nombreux et l’équipe a pensé que l’un des éléments qui peuvent faire la différence sur notre site est la fluidité du moteur de recherche. L’équipe Back-end n’étant pas encore formée, nous disposons uniquement d’un [fichier JavaScript contenant un tableau JSON de 50 recettes](https://github.com/OpenClassrooms-Student-Center/P11-front-end-search-engine).
+Comme tu le sais, les sites offrant des recettes de cuisine sont nombreux et l’équipe a pensé que l’un des éléments qui peuvent faire la différence sur notre site est la fluidité du moteur de recherche. L’équipe Back-end n’étant pas encore formée, nous disposons uniquement d’un [fichier JavaScript contenant un tableau JSON de 50 recettes](https://github.com/OpenClassrooms-Student-Center/P11-front-end-search-engine).
 
-    Ta première mission sera donc d’implémenter la fonctionnalité de recherche. Tu trouveras ici la [description du cas d’utilisation de recherche](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P6+Algorithms/Cas+d%E2%80%99utilisation+%2303+Filtrer+les+recettes+dans+l%E2%80%99interface+utilisateur.pdf). C’est ce document qui te servira de référence pour tout le développement de cette fonctionnalité. En plus de ça, voici la [maquette de la page sur Figma](https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK), assure-toi de bien respecter le design à la lettre.
+Ta première mission sera donc d’implémenter la fonctionnalité de recherche. Tu trouveras ici la [description du cas d’utilisation de recherche](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P6+Algorithms/Cas+d%E2%80%99utilisation+%2303+Filtrer+les+recettes+dans+l%E2%80%99interface+utilisateur.pdf). C’est ce document qui te servira de référence pour tout le développement de cette fonctionnalité. En plus de ça, voici la [maquette de la page sur Figma](https://www.figma.com/file/xqeE1ZKlHUWi2Efo8r73NK), assure-toi de bien respecter le design à la lettre.
 
-    Ce que l’on veut avant tout c’est quelque chose de performant car nos utilisateurs veulent une recherche rapide, presque instantanée ! Ton travail sera transmis au Back-end dans un second temps pour être adapté par leurs soins. C’est pourquoi il faudra que tu leur transmettes un document expliquant bien ton travail. Je te laisse voir comment procéder en détail directement avec Jean-Baptiste.
+Ce que l’on veut avant tout c’est quelque chose de performant car nos utilisateurs veulent une recherche rapide, presque instantanée ! Ton travail sera transmis au Back-end dans un second temps pour être adapté par leurs soins. C’est pourquoi il faudra que tu leur transmettes un document expliquant bien ton travail. Je te laisse voir comment procéder en détail directement avec Jean-Baptiste.
 
-    Sandra
+Sandra
 
 En fin de matinée, vous recevez une notification Slack de Jean-Baptiste, votre Lead Developer :
 
