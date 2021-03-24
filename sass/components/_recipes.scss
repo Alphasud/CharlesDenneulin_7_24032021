@@ -1,0 +1,61 @@
+.recipe {
+  min-width: 25rem;
+  max-width: 35rem;
+  height: 30rem;
+  border-radius: 3px;
+  flex-basis: 30%;
+  background-color: $background-input;
+  margin: 1rem;
+  overflow: hidden;
+
+  &__image {
+    height: 50%;
+    width: 100%;
+    background-color: $image-color;
+    border: none;
+  }
+
+  &__info {
+    padding: 0 1rem 2rem 1rem;
+    height: 50%;
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+
+    &__first-element {
+      margin-bottom: 1rem;
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      &__title {
+        font-weight: 400;
+        font-size: 1.4rem;
+      }
+      &__time {
+        font-weight: 600;
+      }
+    }
+    &__second-element {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &__ingredients {
+        height: 100%;
+        font-size: 1.1rem;
+        flex-basis: 50%;
+      }
+      &__instructions {
+        height: 90%;
+        padding-bottom: 2rem;
+        flex-basis: 50%;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+  }
+}
