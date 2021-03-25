@@ -1,25 +1,63 @@
 import recipes from './recipes.js';
-import showRecipe from './displayRecipes.js';
+import displayRecipe from './displayRecipes.js';
 
 const searchInput = document.querySelector('#searchInput');
 const resultSection = document.querySelector('.result');
 
-resultSection.innerHTML = showRecipe(recipes);
+resultSection.innerHTML = displayRecipe(recipes);
 
-function searchQuery(string) {
-  console.log(string);
-  const recipeFilteredByName = recipes.filter((element) =>
-    element.name.toLowerCase().normalize('NFC').includes(string)
+function searchQuery(input) {
+  /// ///FITLER BY NAME
+  const searchByName = recipes.filter((element) =>
+    element.name.toLowerCase().normalize('NFC').includes(input)
   );
-  console.log(recipeFilteredByName);
-  resultSection.innerHTML = showRecipe(recipeFilteredByName);
+
+  /// ///FILTER BY INGREDIENTS
+  const recipesIngredients = recipes.map((element) => {
+    const { ingredients } = element;
+    const allIngredient = ingredients.map((el) => el.ingredient);
+    return allIngredient.filter((item) => item.toLowerCase().includes(input));
+  });
+  const matchingElementIndex = [];
+  const isNotEmpty = (element) => element.length > 0;
+  for (const item of recipesIngredients) {
+    if (item.findIndex(isNotEmpty) === 0) {
+      matchingElementIndex.push(recipesIngredients.indexOf(item));
+    }
+  }
+  const searchByIngredient = [];
+  for (const i of matchingElementIndex) {
+    searchByIngredient.push(recipes[i]);
+  }
+  /// ///FILTER BY DESCRIPTION
+  const searchByDescription = recipes.filter((element) =>
+    element.description.toLowerCase().normalize('NFC').includes(input)
+  );
+
+  /// ///REMOVE DUPLICATE
+  let globalSearch = searchByName.concat(
+    searchByIngredient,
+    searchByDescription
+  );
+  console.log(globalSearch);
+  const duplicateItems = [];
+  globalSearch = globalSearch.filter((element) => {
+    if (element.id in duplicateItems) {
+      return false;
+    }
+    duplicateItems[element.id] = true;
+    return true;
+  });
+
+  resultSection.innerHTML = displayRecipe(globalSearch);
 }
 
 searchInput.addEventListener('input', (e) => {
-  const result = e.target.value.toLowerCase().normalize('NFC');
-  if (result.length >= 3) {
-    searchQuery(result);
+  const input = e.target.value.toLowerCase();
+  input.normalize('NFC');
+  if (input.length >= 3) {
+    searchQuery(input);
   } else {
-    resultSection.innerHTML = showRecipe(recipes);
+    resultSection.innerHTML = displayRecipe(recipes);
   }
 });

@@ -1,4 +1,4 @@
-function showRecipe(array) {
+function displayRecipe(array) {
   const recipeResult = array
     .map((element) => {
       const { name } = element;
@@ -45,4 +45,4 @@ function showRecipe(array) {
   return recipeResult;
 }
 
-export { showRecipe as default };
+export { displayRecipe as default };
