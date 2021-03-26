@@ -1,1 +1,2 @@
-import {} from './components/searchForm.js';
+import {} from './components/homePage.js';
+import {} from './components/dropDown.js';

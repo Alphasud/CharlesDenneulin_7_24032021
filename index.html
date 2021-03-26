@@ -31,23 +31,41 @@
           </form>
 
           <div class="search__select">
-            <div class="search__select__ingredient">
-              <select>
-                <option value="0">ingrédient</option>
-              </select>
-            </div>
+            <button class="custom-select">
+              <div class="custom-select__trigger --ingredient">
+                <span id="currentFilter">Ingrédients</span>
+                <div class="arrow"></div>
+              </div>
+              <div class="custom-options">
+                <span class="custom-option selected">1</span>
+                <span class="custom-option">2</span>
+                <span class="custom-option">3</span>
+              </div>
+            </button>
 
-            <div class="search__select__appliance">
-              <select>
-                <option value="0">Appareil</option>
-              </select>
-            </div>
+            <button class="custom-select">
+              <div class="custom-select__trigger --appliance">
+                <span id="currentFilter">Appareil</span>
+                <div class="arrow"></div>
+              </div>
+              <div class="custom-options">
+                <span class="custom-option selected">1</span>
+                <span class="custom-option">2</span>
+                <span class="custom-option">3</span>
+              </div>
+            </button>
 
-            <div class="search__select__device">
-              <select>
-                <option value="0">Ustensiles</option>
-              </select>
-            </div>
+            <button class="custom-select">
+              <div class="custom-select__trigger --device">
+                <span id="currentFilter">ustensiles</span>
+                <div class="arrow"></div>
+              </div>
+              <div class="custom-options" id="listbox" role="listbox">
+                <span class="custom-option selected">1</span>
+                <span class="custom-option">2</span>
+                <span class="custom-option">3</span>
+              </div>
+            </button>
           </div>
         </section>
         <section class="result" id="result"></section>

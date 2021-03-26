@@ -1,6 +1,6 @@
 .search {
-  width: 100%;
-  margin-top: 2rem;
+  width: 98%;
+  margin: 2rem 0 0 0;
   display: flex;
   justify-content: center;
   align-items: baseline;
@@ -23,17 +23,18 @@
         font-size: 1.4rem;
       }
       &:focus {
-        outline: 2px solid $text-color-title;
-        -moz-outline-radius: 3px;
+        //outline: 2px solid $text-color-title;
+        //-moz-outline-radius: 3px;
       }
     }
   }
 
   &__select {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: 2rem;
     position: relative;
+    width: 100%;
   }
 }
 
