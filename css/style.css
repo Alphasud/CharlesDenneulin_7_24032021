@@ -68,12 +68,101 @@ body {
 .search__input input::placeholder {
   font-size: 1.4rem;
 }
-.search__select {
+.search__filter {
   display: flex;
   justify-content: flex-start;
   margin-top: 2rem;
   position: relative;
   width: 100%;
+}
+.search__filter__element {
+  width: 12rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: white;
+  height: 5rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+.search__filter__element:hover {
+  opacity: 1;
+}
+.search__filter__element:focus {
+  opacity: 1;
+}
+.search__filter__element.open {
+  width: 35%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.search__filter__input {
+  opacity: 0;
+  font-size: 1.3rem;
+  border: none;
+  visibility: hidden;
+  display: block;
+  background-color: #3282f7;
+  height: 5rem;
+  border-radius: 3px;
+  width: 100%;
+  outline: none;
+  color: white;
+}
+.search__filter__input ::placeholder {
+  opacity: 1;
+}
+.search__filter__label {
+  width: 5rem;
+  opacity: 1;
+  visibility: visible;
+}
+.search__filter__list {
+  width: 35%;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  border-radius: 0 0 3px 3px;
+  padding: 1rem 1rem;
+  top: 100%;
+  left: 0;
+  right: 0;
+  transition: all 0.5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 2;
+}
+.search__filter__list --ingredient {
+  background-color: #3282f7;
+}
+
+.search__filter__element.open ~ .search__filter__list {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search__filter__element.open > .search__filter__input {
+  opacity: 1;
+  visibility: visible;
+  width: 50rem;
+}
+
+.search__filter__element.open > .search__filter__label {
+  opacity: 0;
+  visibility: hidden;
+  width: 0;
+}
+
+.search__filter__element.open > .arrow {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  right: 1rem;
+  margin-left: 1rem;
 }
 
 .fas.fa-search {
@@ -86,7 +175,7 @@ body {
 .recipe {
   min-width: 25rem;
   max-width: 35rem;
-  height: 30rem;
+  height: 33rem;
   border-radius: 3px;
   flex-basis: 30%;
   background-color: #e7e7e7;
@@ -109,6 +198,7 @@ body {
 .recipe__info__first-element {
   margin-bottom: 1rem;
   width: 100%;
+  min-height: 4rem;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -116,6 +206,7 @@ body {
 .recipe__info__first-element__title {
   font-weight: 400;
   font-size: 1.4rem;
+  max-width: 70%;
 }
 .recipe__info__first-element__time {
   font-weight: 600;
@@ -125,111 +216,56 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 1rem;
 }
 .recipe__info__second-element__ingredients {
   height: 100%;
-  font-size: 1.1rem;
   flex-basis: 50%;
 }
 .recipe__info__second-element__instructions {
-  height: 90%;
-  padding-bottom: 2rem;
   flex-basis: 50%;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.custom-select {
-  position: relative;
-  width: 12rem;
-  display: flex;
-  flex-direction: column;
-  border: none;
-}
-.custom-select:not(:last-child) {
-  margin-right: 1rem;
-}
-.custom-select__trigger {
-  width: 12rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
-  color: white;
-  height: 5rem;
-  background-color: blue;
-  cursor: pointer;
-  border-radius: 3px;
-}
-.custom-select__trigger:hover {
-  opacity: 0.8;
-}
-.custom-select__trigger:focus {
-  opacity: 0.8;
-}
-
-.custom-options {
-  position: absolute;
-  display: block;
-  padding: 0 10px;
-  top: 100%;
-  left: 0;
-  right: 0;
-  border-top: 0;
-  background-color: red;
-  transition: all 0.5s;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  z-index: 2;
-}
-.custom-options:last-child {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.custom-select.open .custom-options {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: all;
+  line-height: 1.3;
+  height: 9rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
 }
 
 .custom-option {
+  flex-basis: 30%;
   position: relative;
   display: block;
-  padding: 12px 0px;
   color: white;
-  height: 4rem;
+  height: 2rem;
   cursor: pointer;
   text-align: left;
-  border-top: 1px solid rgba(255, 255, 255, 0.6);
   transition: all 0.25s;
 }
 .custom-option:hover {
-  background-color: red;
   color: black;
   cursor: pointer;
-  font-size: 1.5rem;
 }
 .custom-option:focus {
-  background-color: red;
   color: black;
+}
+.custom-option .--ingredient {
+  background-color: #3282f7;
 }
 
 .custom-option.selected {
   color: white;
-  background-color: red;
-  display: none;
+  display: block;
+}
+.custom-option.selected .--ingredient {
+  background-color: #3282f7;
 }
 
 .arrow {
   position: relative;
   height: 10px;
   width: 10px;
-  margin-left: 1rem;
+  margin-left: -2.5rem;
 }
 
 .arrow::before,
@@ -274,6 +310,14 @@ body {
 
 .--device {
   background-color: #ed6454;
+}
+
+.none {
+  display: none;
+}
+
+.show {
+  display: flex;
 }
 
 .header {

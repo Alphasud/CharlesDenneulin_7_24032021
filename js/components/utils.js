@@ -5,4 +5,22 @@ function normalizeData(string) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 
-export { normalizeData as default };
+function removeDuplicate(array) {
+  const duplicateItems = [];
+  const noDuplicate = array.filter((element) => {
+    if (element in duplicateItems) {
+      return false;
+    }
+    duplicateItems[element] = true;
+    return true;
+  });
+  return noDuplicate;
+}
+
+function passData(x) {
+  return x;
+}
+
+function dropDown() {}
+
+export { normalizeData, removeDuplicate, passData, dropDown };

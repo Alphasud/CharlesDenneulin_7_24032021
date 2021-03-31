@@ -20,53 +20,35 @@
       </header>
       <main>
         <section class="search">
-          <form class="search__input">
+          <form class="search__input" id="form">
             <input
               type="text"
               id="searchInput"
               placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette."
-              aria-label="Rechercher"
+              aria-label="Rechercher un ingrédient, appareil, ustensiles ou une recette."
             />
             <i class="fas fa-search"></i>
           </form>
+        </section>
 
-          <div class="search__select">
-            <button class="custom-select">
-              <div class="custom-select__trigger --ingredient">
-                <span id="currentFilter">Ingrédients</span>
-                <div class="arrow"></div>
-              </div>
-              <div class="custom-options">
-                <span class="custom-option selected">1</span>
-                <span class="custom-option">2</span>
-                <span class="custom-option">3</span>
-              </div>
-            </button>
+        <section class="search__tags"></section>
 
-            <button class="custom-select">
-              <div class="custom-select__trigger --appliance">
-                <span id="currentFilter">Appareil</span>
-                <div class="arrow"></div>
-              </div>
-              <div class="custom-options">
-                <span class="custom-option selected">1</span>
-                <span class="custom-option">2</span>
-                <span class="custom-option">3</span>
-              </div>
-            </button>
-
-            <button class="custom-select">
-              <div class="custom-select__trigger --device">
-                <span id="currentFilter">ustensiles</span>
-                <div class="arrow"></div>
-              </div>
-              <div class="custom-options" id="listbox" role="listbox">
-                <span class="custom-option selected">1</span>
-                <span class="custom-option">2</span>
-                <span class="custom-option">3</span>
-              </div>
-            </button>
+        <section class="search__filter">
+          <div class="search__filter__element --ingredient">
+            <span class="search__filter__label" id="currentFilter"
+              >Ingredients</span
+            >
+            <input
+              type="text"
+              class="search__filter__input"
+              placeholder="Ingredient"
+            />
+            <div class="arrow"></div>
           </div>
+          <div
+            id="listIngredient"
+            class="search__filter__list --ingredient"
+          ></div>
         </section>
         <section class="result" id="result"></section>
       </main>

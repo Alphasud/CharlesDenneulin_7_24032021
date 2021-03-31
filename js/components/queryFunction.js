@@ -1,5 +1,5 @@
 import recipes from './recipes.js';
-import normalizeData from './utils.js';
+import { normalizeData, removeDuplicate } from './utils.js';
 
 function searchQuery(input) {
   /// ///FITLER BY NAME
@@ -52,4 +52,38 @@ function searchQuery(input) {
   return globalSearch;
 }
 
-export { searchQuery as default };
+function displayIngredient(arr) {
+  const ingredientResult = arr.flatMap((element) => {
+    const allIngredients = element.ingredients;
+
+    const ingredients = allIngredients.map((el) => {
+      const { ingredient } = el;
+      return `<span class="custom-option --ingredient">${ingredient}</span>`;
+    });
+    return ingredients;
+  });
+  console.log(removeDuplicate(ingredientResult));
+  return removeDuplicate(ingredientResult);
+}
+
+function searchIngredient(string) {
+  const ingredientList = Array.from(
+    document.querySelectorAll('.custom-option.--ingredient')
+  );
+  const IngredientListValue = ingredientList.map(
+    (element) => element.innerHTML
+  );
+  let ingredientFiltered = IngredientListValue.filter((element) =>
+    element.includes(string)
+  );
+  ingredientFiltered = ingredientFiltered
+    .map(
+      (element) => `<span class='custom-option --ingredient'>${element}</span>`
+    )
+    .join('');
+
+  const listIngredient = document.querySelector('#listIngredient');
+  listIngredient.innerHTML = ingredientFiltered;
+}
+
+export { searchQuery, displayIngredient, searchIngredient };
