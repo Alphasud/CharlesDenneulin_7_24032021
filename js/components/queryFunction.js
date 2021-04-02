@@ -52,38 +52,194 @@ function searchQuery(input) {
   return globalSearch;
 }
 
-function displayIngredient(arr) {
-  const ingredientResult = arr.flatMap((element) => {
-    const allIngredients = element.ingredients;
-
-    const ingredients = allIngredients.map((el) => {
-      const { ingredient } = el;
-      return `<span class="custom-option --ingredient">${ingredient}</span>`;
+function selectIngredientTag(arr) {
+  for (const item of arr) {
+    item.addEventListener('click', () => {
+      const tagSection = document.querySelector('.search__tags');
+      const tag = document.createElement('span');
+      tag.classList = 'search__tags__item --Ingredients';
+      tag.innerHTML = item.innerHTML;
+      tag.insertAdjacentHTML(
+        'beforeend',
+        '<i id="close" class="far fa-times-circle"></i>'
+      );
+      tagSection.insertAdjacentElement('afterbegin', tag);
+      const closeButton = document.getElementById('close');
+      closeButton.addEventListener('click', () => {
+        tag.remove();
+      });
     });
-    return ingredients;
-  });
-  console.log(removeDuplicate(ingredientResult));
-  return removeDuplicate(ingredientResult);
+  }
 }
 
-function searchIngredient(string) {
-  const ingredientList = Array.from(
-    document.querySelectorAll('.custom-option.--ingredient')
+function displayIngredients(arr, string) {
+  const arrayOfrecipes = arr.flatMap((element) => element.ingredients);
+  const arrayOfIngredients = arrayOfrecipes.flatMap(
+    (element) => element.ingredient
   );
-  const IngredientListValue = ingredientList.map(
-    (element) => element.innerHTML
-  );
-  let ingredientFiltered = IngredientListValue.filter((element) =>
-    element.includes(string)
-  );
-  ingredientFiltered = ingredientFiltered
-    .map(
-      (element) => `<span class='custom-option --ingredient'>${element}</span>`
-    )
-    .join('');
+  if (string !== '') {
+    const arrayOfIngredient = arrayOfIngredients.filter((element) => {
+      const elementNormalized = normalizeData(element);
+      return elementNormalized.includes(string);
+    });
+    const ingredientSearchResultWithoutDuplicate = removeDuplicate(
+      arrayOfIngredient
+    );
+    const resultDisplayed = ingredientSearchResultWithoutDuplicate
+      .map(
+        (element) =>
+          `<li class='search__filter__list__item  --Ingredients'>${element}</li>`
+      )
+      .join('');
 
-  const listIngredient = document.querySelector('#listIngredient');
-  listIngredient.innerHTML = ingredientFiltered;
+    if (resultDisplayed.length > 0) {
+      const listIngredient = document.querySelector('.search__filter__list');
+      listIngredient.innerHTML = resultDisplayed;
+      const result = document.querySelectorAll(
+        '.search__filter__list__item.--Ingredients'
+      );
+      selectIngredientTag(result);
+    } else {
+      const listIngredient = document.querySelector('.search__filter__list');
+      listIngredient.innerHTML = `<li class='search__filter__list__item__error --Ingredients'>Pas de résultats</li>`;
+    }
+  } else {
+    const arrayOfIngredient = arrayOfIngredients.map((element) => element);
+    const ingredientSearchResultWithoutDuplicate = removeDuplicate(
+      arrayOfIngredient
+    );
+    const resultDisplayed = ingredientSearchResultWithoutDuplicate
+      .map(
+        (element) =>
+          `<li class='search__filter__list__item  --Ingredients'>${element}</li>`
+      )
+      .join('');
+
+    const listIngredient = document.querySelector(
+      '.search__filter__list.--Ingredients'
+    );
+    listIngredient.innerHTML = resultDisplayed;
+    const result = document.querySelectorAll(
+      '.search__filter__list__item.--Ingredients'
+    );
+    selectIngredientTag(result);
+  }
 }
 
-export { searchQuery, displayIngredient, searchIngredient };
+function displayAppliances(arr, string) {
+  const arrayOfAppliances = arr.flatMap((element) => element.appliance);
+  if (string !== '') {
+    const arrayOfAppliancesFiltered = arrayOfAppliances.filter((element) => {
+      const elementNormalized = normalizeData(element);
+      return elementNormalized.includes(string);
+    });
+    const applianceSearchResultWithoutDuplicate = removeDuplicate(
+      arrayOfAppliancesFiltered
+    );
+    const resultDisplayed = applianceSearchResultWithoutDuplicate
+      .map(
+        (element) =>
+          `<li class='search__filter__list__item  --Appareils'>${element}</li>`
+      )
+      .join('');
+    if (resultDisplayed.length > 0) {
+      const listAppliance = document.querySelector(
+        '.search__filter__list.--Appareils'
+      );
+      listAppliance.innerHTML = resultDisplayed;
+      const result = document.querySelectorAll(
+        '.search__filter__list__item.--Appareils'
+      );
+      selectIngredientTag(result);
+    } else {
+      const listAppliance = document.querySelector(
+        '.search__filter__list.--Appareils'
+      );
+      listAppliance.innerHTML = `<li class="search__filter__list__item__error --Appareils">
+              Pas de résultats
+            </li>`;
+    }
+  } else {
+    arrayOfAppliances.map((element) => element);
+    const applianceSearchResultWithoutDuplicate = removeDuplicate(
+      arrayOfAppliances
+    );
+    const resultDisplayed = applianceSearchResultWithoutDuplicate
+      .map(
+        (element) =>
+          `<li class='search__filter__list__item  --Appareils'>${element}</li>`
+      )
+      .join('');
+
+    const listAppliance = document.querySelector(
+      '.search__filter__list.--Appareils'
+    );
+    listAppliance.innerHTML = resultDisplayed;
+    const result = document.querySelectorAll(
+      '.search__filter__list__item.--Appareils'
+    );
+    selectIngredientTag(result);
+  }
+}
+
+function displayDevices(arr, string) {
+  const arrayOfDevices = arr.flatMap((element) => element.devices);
+  if (string !== '') {
+    const arrayOfDevicesFiltered = arrayOfDevices.filter((element) => {
+      const elementNormalized = normalizeData(element);
+      return elementNormalized.includes(string);
+    });
+    const deviceSearchResultWithoutDuplicate = removeDuplicate(
+      arrayOfDevicesFiltered
+    );
+    const resultDisplayed = deviceSearchResultWithoutDuplicate
+      .map(
+        (element) =>
+          `<li class='search__filter__list__item  --Ustenciles'>${element}</li>`
+      )
+      .join('');
+    if (resultDisplayed.length > 0) {
+      const listDevice = document.querySelector(
+        '.search__filter__list.--Ustenciles'
+      );
+      listDevice.innerHTML = resultDisplayed;
+      const result = document.querySelectorAll(
+        '.search__filter__list__item.--Ustenciles'
+      );
+      selectIngredientTag(result);
+    } else {
+      const listDevice = document.querySelector(
+        '.search__filter__list.--Ustenciles'
+      );
+      listDevice.innerHTML = `<li class="search__filter__list__item__error --Ustenciles">
+              Pas de résultats
+            </li>`;
+    }
+  } else {
+    arrayOfDevices.map((element) => element);
+    const deviceSearchResultWithoutDuplicate = removeDuplicate(arrayOfDevices);
+    const resultDisplayed = deviceSearchResultWithoutDuplicate
+      .map(
+        (element) =>
+          `<li class='search__filter__list__item  --Ustenciles'>${element}</li>`
+      )
+      .join('');
+
+    const listDevice = document.querySelector(
+      '.search__filter__list.--Ustenciles'
+    );
+    listDevice.innerHTML = resultDisplayed;
+    const result = document.querySelectorAll(
+      '.search__filter__list__item.--Ustenciles'
+    );
+    selectIngredientTag(result);
+  }
+}
+
+export {
+  searchQuery,
+  displayIngredients,
+  selectIngredientTag,
+  displayAppliances,
+  displayDevices,
+};

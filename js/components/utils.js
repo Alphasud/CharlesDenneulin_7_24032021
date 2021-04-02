@@ -17,10 +17,4 @@ function removeDuplicate(array) {
   return noDuplicate;
 }
 
-function passData(x) {
-  return x;
-}
-
-function dropDown() {}
-
-export { normalizeData, removeDuplicate, passData, dropDown };
+export { normalizeData, removeDuplicate };
