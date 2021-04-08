@@ -1,46 +1,38 @@
 import recipes from './recipes.js';
 import displayRecipe from './displayRecipes.js';
-import { normalizeData } from './utils.js';
+import {
+  normalizeData,
+  observeChangesOnTagSection,
+  closeSearchFieldWhenUserClickElswhere,
+  displayElements,
+  removeDuplicate,
+} from './utils.js';
 import {
   searchQuery,
-  displayIngredients,
-  displayAppliances,
-  displayDevices,
+  displayListElement,
 } from './queryFunction.js';
-import SearchField from './searchField.js';
+
+
 
 const searchInput = document.querySelector('#searchInput');
 const resultSection = document.querySelector('.result');
-const form = document.querySelector('#form');
-const searchFilter = document.querySelector('.search__filter');
+
 let globalSearch;
+let globalIngredient;
+let globalAppliance;
+let globalDevice;
+let IngredientTagsArray = [];
+let applianceTagsArray = [];
+let deviceTagsArray = [];
 
 searchInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
   }
 });
-/// DISPLAY SEARCH BUTTON///
-const advancedSearchField = new SearchField();
 
-const deviceAdvancedSearch = advancedSearchField.createSearchField(
-  'Ustenciles'
-);
-searchFilter.insertAdjacentHTML('afterbegin', deviceAdvancedSearch);
+displayElements()
 
-const applianceAdvancedSearch = advancedSearchField.createSearchField(
-  'Appareils'
-);
-searchFilter.insertAdjacentHTML('afterbegin', applianceAdvancedSearch);
-
-const ingredientsAdvancedSearch = advancedSearchField.createSearchField(
-  'Ingredients'
-);
-searchFilter.insertAdjacentHTML('afterbegin', ingredientsAdvancedSearch);
-
-/// /DISPLAY ALL RECIPE ON PAGE LOAD/////
-resultSection.innerHTML = displayRecipe(recipes);
-form.reset();
 
 /// /LISTEN TO THE MAIN INPUT/////
 const listIngredient = document.querySelector(
@@ -56,7 +48,8 @@ searchInput.addEventListener('input', (e) => {
   const inputNormalized = normalizeData(input);
 
   if (inputNormalized.length >= 3) {
-    globalSearch = searchQuery(inputNormalized);
+    globalSearch = searchQuery(recipes, inputNormalized);
+    // console.log(globalSearch);
     if (globalSearch.length < 1) {
       resultSection.innerHTML = `<p class='error-result'>Pas de recettes à afficher pour cette recherche.</p>`;
       listIngredient.innerHTML = '';
@@ -64,9 +57,16 @@ searchInput.addEventListener('input', (e) => {
       listDevice.innerHTML = '';
     } else {
       resultSection.innerHTML = displayRecipe(globalSearch);
-      displayIngredients(globalSearch, '');
-      displayAppliances(globalSearch, '');
-      displayDevices(globalSearch, '');
+      globalIngredient = globalSearch.flatMap(
+        (element) => element.ingredients
+      );
+      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+
+      globalAppliance = globalSearch;
+      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+
+      globalDevice = globalSearch;
+      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
     }
   } else {
     resultSection.innerHTML = displayRecipe(recipes);
@@ -76,33 +76,41 @@ searchInput.addEventListener('input', (e) => {
   }
 });
 
-/// /LISTEN TO THE INGREDIENT ADVANCED SEARCH INPUT/////
+
 const searchInputIngredient = document.querySelector('#IngredientsInput');
+const searchInputAppliance = document.querySelector('#AppareilsInput');
+const searchInputDevice = document.querySelector('#UstencilesInput');
+
+/// /LISTEN TO THE INGREDIENT ADVANCED SEARCH INPUT/////
+
 searchInputIngredient.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  displayIngredients(globalSearch, inputNormalized);
+  //globalIngredient = globalSearch.flatMap((element) => element.ingredients);
+  displayListElement(globalIngredient, 'ingredient', inputNormalized, 'Ingredients');
 });
 
 /// /LISTEN TO THE APPLIANCES ADVANCED SEARCH INPUT/////
-const searchInputAppliance = document.querySelector('#AppareilsInput');
 searchInputAppliance.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  displayAppliances(globalSearch, inputNormalized);
+  displayListElement(globalAppliance, 'appliance', inputNormalized, 'Appareils');
 });
 
 /// /LISTEN TO THE DEVICES ADVANCED SEARCH INPUT/////
-const searchInputDevice = document.querySelector('#UstencilesInput');
+
 searchInputDevice.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  displayDevices(globalSearch, inputNormalized);
+  displayListElement(globalDevice, 'devices', inputNormalized, 'Ustenciles');
 });
 
 const articleIngredient = document.querySelector('.article-Ingredients');
 const articleAppliance = document.querySelector('.article-Appareils');
 const articleDevice = document.querySelector('.article-Ustenciles');
+
+////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 /// /LISTEN TO THE INGREDIENT ADVANCED SEARCH BUTTON CLICK/////
 const filterElementIngredient = document.querySelector(
   '.search__filter__element.--Ingredients'
@@ -119,7 +127,6 @@ filterElementIngredient.addEventListener('click', () => {
     articleDevice.classList.remove('larger');
     searchInputIngredient.value = '';
     searchInputIngredient.focus();
-    displayIngredients(globalSearch, '');
   }
 });
 
@@ -127,7 +134,6 @@ filterElementIngredient.addEventListener('click', () => {
 const filterElementAppliance = document.querySelector(
   '.search__filter__element.--Appareils'
 );
-
 filterElementAppliance.addEventListener('click', () => {
   const listApp = document.querySelectorAll(
     '.search__filter__list__item.--Appareils'
@@ -139,7 +145,7 @@ filterElementAppliance.addEventListener('click', () => {
     articleDevice.classList.remove('larger');
     searchInputAppliance.value = '';
     searchInputAppliance.focus();
-    displayAppliances(globalSearch, '');
+    // displayListElement(globalSearch, 'appliance', '', 'Appareils');
   }
 });
 
@@ -158,22 +164,117 @@ filterElementDevice.addEventListener('click', () => {
     articleAppliance.classList.remove('larger');
     searchInputDevice.value = '';
     searchInputDevice.focus();
-    displayDevices(globalSearch, '');
+    // displayListElement(globalSearch, 'devices', '', 'Ustenciles');
   }
 });
 
-/// CLOSE DOPDOWN MENU WHEN USER CLICK ELSEWHERE//////
-/* const body = document.querySelector('body');
-body.addEventListener('click', (event) => {
-  const advancedSearch = document.querySelectorAll('article');
-  for (const element of advancedSearch) {
-    if (!element.contains(event.target)) {
-      element.classList.remove('larger');
-      const list = document.querySelectorAll('.search__filter__element');
-      for (const el of list) {
-        el.classList.remove('open');
-      }
-    }
+// inputListeners(globalIngredient, globalSearch);
+
+observeChangesOnTagSection();
+closeSearchFieldWhenUserClickElswhere()
+
+
+
+const IngredientList = document.querySelector(
+  `.search__filter__list.--Ingredients`
+);
+
+const observer = new MutationObserver(() => {
+  const tags = document.querySelectorAll(
+    `.search__filter__list__item.--Ingredients`
+  );
+  for (const item of tags) {
+    item.addEventListener('click', () => {
+      item.remove();
+      globalIngredient = globalIngredient.filter(element => element.ingredient !== item.innerText);
+      IngredientTagsArray.push(item.innerText);
+      IngredientTagsArray = removeDuplicate(IngredientTagsArray);
+      console.log(IngredientTagsArray);
+      const tagsDisplayed = IngredientTagsArray.map((element) => {
+        return `<span class='search__tags__item --Ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+      }).join('');
+
+    const tagSection = document.querySelector('.search__tags__Ingredients');
+    tagSection.innerHTML = tagsDisplayed;
+  
+      
+    
+    const tagInput = normalizeData(item.innerText);
+    globalSearch = searchQuery(globalSearch, tagInput);
+    resultSection.innerHTML = displayRecipe(globalSearch);
+      globalIngredient = globalSearch.flatMap((element) => element.ingredients);
+      globalIngredient = globalIngredient.filter(
+        (element) => element.ingredient !== item.innerText
+      );
+    displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+  });
+  }
+
+});
+observer.observe(IngredientList, { subtree: true, childList: true });
+
+
+const applianceList = document.querySelector(
+  `.search__filter__list.--Appareils`
+);
+const observerAppliance = new MutationObserver(() => {
+  const tags = document.querySelectorAll(
+    `.search__filter__list__item.--Appareils`
+  );
+  for (const item of tags) {
+    item.addEventListener('click', () => {
+      item.remove();
+      globalAppliance = globalSearch.filter(
+        (element) => element.appliance !== item.innerText
+      );
+      applianceTagsArray.push(item.innerText);
+      applianceTagsArray = removeDuplicate(applianceTagsArray);
+      console.log(applianceTagsArray);
+      const tagsDisplayed = applianceTagsArray
+        .map((element) => {
+          return `<span class='search__tags__item --Appareils'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+        })
+        .join('');
+
+      const tagSection = document.querySelector('.search__tags__Appareils');
+      tagSection.innerHTML = tagsDisplayed;
+    });
   }
 });
-*/
+observerAppliance.observe(applianceList, { subtree: true, childList: true });
+
+
+const deviceList = document.querySelector(
+  `.search__filter__list.--Ustenciles`
+);
+const observerDevice = new MutationObserver(() => {
+  const tags = document.querySelectorAll(
+    '.search__filter__list__item.--Ustenciles'
+  );
+  for (const item of tags) {
+    item.addEventListener('click', () => {
+      item.remove();
+      globalDevice = globalDevice.filter(
+        (element) => element.devices !== item.innerText
+      );
+      deviceTagsArray.push(item.innerText);
+      deviceTagsArray = removeDuplicate(deviceTagsArray);
+      const tagsDisplayed = deviceTagsArray
+        .map((element) => {
+          return `<span class='search__tags__item --Ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+        })
+        .join('');
+
+      const tagSection = document.querySelector('.search__tags__Ustenciles');
+      tagSection.innerHTML = tagsDisplayed;
+    });
+  }
+});
+observerDevice.observe(deviceList, { subtree: true, childList: true });
+
+
+
+
+
+
+

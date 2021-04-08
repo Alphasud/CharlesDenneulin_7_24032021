@@ -69,10 +69,11 @@ body {
   font-size: 1.4rem;
 }
 .search__tags {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   height: auto;
+  margin-top: 1rem;
+}
+.search__tags__Ingredients, .search__tags__Appareils, .search__tags__Ustenciles {
+  display: flex;
 }
 .search__tags__item {
   margin-top: 1rem;
@@ -87,12 +88,13 @@ body {
 }
 .search__filter {
   display: flex;
-  margin-top: 1rem;
+  margin-top: 2rem;
   justify-content: flex-start;
   position: relative;
   width: 100%;
 }
 .search__filter__element {
+  cursor: pointer;
   width: 12rem;
   position: relative;
   display: flex;
@@ -102,7 +104,7 @@ body {
   color: white;
   height: 5rem;
   border-radius: 3px;
-  transition: width 0.2s ease;
+  transition: width 0.1s ease;
 }
 .search__filter__element:hover {
   opacity: 1;
@@ -156,13 +158,10 @@ body {
   border-radius: 0 0 3px 3px;
   padding: 1rem 1rem;
   top: 100%;
-  transition: all 0.2s;
+  transition: all 0.1s;
   opacity: 0;
   visibility: hidden;
   z-index: 2;
-}
-.search__filter__list --Ingredients {
-  background-color: #3282f7;
 }
 .search__filter__list__item {
   flex-basis: 33%;
@@ -170,7 +169,7 @@ body {
   display: block;
   color: white;
   text-align: left;
-  transition: all 0.2s;
+  transition: all 0.1s;
 }
 .search__filter__list__item:hover {
   font-weight: 600;
@@ -184,23 +183,15 @@ body {
   cursor: default;
   list-style: none;
 }
-.search__filter__list__item .--Ingredients {
+.search__filter__list__item.--Ingredients {
   background-color: #3282f7;
 }
 
-.article-Ingredients {
-  width: auto;
-  transition: width 0.2s ease;
-}
-
-.article-Appareils {
-  width: auto;
-  transition: width 0.2s ease;
-}
-
+.article-Ingredients,
+.article-Appareils,
 .article-Ustenciles {
   width: auto;
-  transition: width 0.2s ease;
+  transition: width 0.1s ease;
 }
 
 .larger {
@@ -243,6 +234,7 @@ body {
 
 .far.fa-times-circle {
   margin-left: 0.5rem;
+  cursor: pointer;
 }
 
 .--Ingredients {
