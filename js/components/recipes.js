@@ -1431,7 +1431,7 @@ const recipes = [
     ],
     time: 10,
     description:
-      "Dans un saladier mettre l'eau, le jus des cirtons et le sucre. Bien mélanger. Ajouter le bicarbonate. Servir. Ajouter des glaçon et une feuille de menthe pour la déco.",
+      "Dans un saladier mettre l'eau, le jus des citrons et le sucre. Bien mélanger. Ajouter le bicarbonate. Servir. Ajouter des glaçon et une feuille de menthe pour la déco.",
     appliance: 'Saladier',
     devices: ['cuillère en bois'],
   },

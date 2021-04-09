@@ -10,6 +10,9 @@ import {
 import {
   searchQuery,
   displayListElement,
+  searchIngredient,
+  searchAppliance,
+  searchDevice,
 } from './queryFunction.js';
 
 
@@ -42,14 +45,19 @@ const listAppliance = document.querySelector(
   '.search__filter__list.--Appareils'
 );
 const listDevice = document.querySelector('.search__filter__list.--Ustenciles');
+const tagSection = document.querySelector('.search__tags__Ingredients');
 
 searchInput.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
+  tagSection.innerHTML = '';
+  IngredientTagsArray = [];
+  applianceTagsArray = [];
+  deviceTagsArray = [];
 
   if (inputNormalized.length >= 3) {
     globalSearch = searchQuery(recipes, inputNormalized);
-    // console.log(globalSearch);
+     // console.log(globalSearch);
     if (globalSearch.length < 1) {
       resultSection.innerHTML = `<p class='error-result'>Pas de recettes à afficher pour cette recherche.</p>`;
       listIngredient.innerHTML = '';
@@ -199,14 +207,20 @@ const observer = new MutationObserver(() => {
   
       
     
-    const tagInput = normalizeData(item.innerText);
-    globalSearch = searchQuery(globalSearch, tagInput);
-    resultSection.innerHTML = displayRecipe(globalSearch);
+      const tagInput = normalizeData(item.innerText);
+      globalSearch = searchIngredient(globalSearch, tagInput);
+      resultSection.innerHTML = displayRecipe(globalSearch);
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
       globalIngredient = globalIngredient.filter(
         (element) => element.ingredient !== item.innerText
       );
-    displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      
+      globalAppliance = globalSearch;
+      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+
+      globalDevice = globalSearch;
+      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
   });
   }
 
@@ -238,7 +252,21 @@ const observerAppliance = new MutationObserver(() => {
 
       const tagSection = document.querySelector('.search__tags__Appareils');
       tagSection.innerHTML = tagsDisplayed;
-    });
+
+       const tagInput = normalizeData(item.innerText);
+    globalSearch = searchAppliance(globalSearch, tagInput);
+    resultSection.innerHTML = displayRecipe(globalSearch);
+      globalAppliance = globalSearch.filter(
+        (element) => element.appliance !== item.innerText
+      );
+      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      
+      globalDevice = globalSearch;
+      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+
+      globalIngredient = globalSearch.flatMap((element) => element.ingredients);
+      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+  });
   }
 });
 observerAppliance.observe(applianceList, { subtree: true, childList: true });
@@ -267,10 +295,27 @@ const observerDevice = new MutationObserver(() => {
 
       const tagSection = document.querySelector('.search__tags__Ustenciles');
       tagSection.innerHTML = tagsDisplayed;
+
+      const tagInput = normalizeData(item.innerText);
+      globalSearch = searchDevice(globalSearch, tagInput);
+    resultSection.innerHTML = displayRecipe(globalSearch);
+      globalDevice = globalSearch.filter(
+        (element) => element.devices !== item.innerText
+      );
+      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      
+      globalIngredient = globalSearch.flatMap((element) => element.ingredients);
+      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+
+      globalAppliance = globalSearch;
+      displayListElement(globalAppliance, 'appliance', '', 'Appareils')
+
     });
   }
 });
 observerDevice.observe(deviceList, { subtree: true, childList: true });
+
+
 
 
 

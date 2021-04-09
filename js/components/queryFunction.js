@@ -107,4 +107,96 @@ function displayListElement(arr, type, input, name ) {
   
 }
 
-export { searchQuery, displayListElement };
+function searchIngredient(arr, input) {
+  /// ///FILTER IN INGREDIENTS
+  const recipesIngredients = arr.map((element) => {
+    const { ingredients } = element;
+    const allIngredient = ingredients.map((el) => el.ingredient);
+    return allIngredient.filter((item) => {
+      const elementNormalized = normalizeData(item);
+      return elementNormalized.includes(input);
+    });
+  });
+  const matchingElementIndex = [];
+  const isNotEmpty = (element) => element.length > 0;
+  for (const item of recipesIngredients) {
+    if (item.findIndex(isNotEmpty) === 0) {
+      matchingElementIndex.push(recipesIngredients.indexOf(item));
+    }
+  }
+  const searchByIngredient = [];
+  for (const i of matchingElementIndex) {
+    searchByIngredient.push(arr[i]);
+  }
+
+   ///REMOVE DUPLICATE
+    let search = searchByIngredient;
+
+  const duplicateItems = [];
+  search = search.filter((element) => {
+    if (element.id in duplicateItems) {
+      return false;
+    }
+    duplicateItems[element.id] = true;
+    return true;
+  });
+  return search;
+  
+}
+
+function searchAppliance(arr, input) {
+    /// ///SEARCH IN APPLIANCES
+    const recipesAppliances = arr.filter((element) => {
+        const allApliances = element.appliance;
+        return normalizeData(allApliances).includes(input);  
+    });
+  ///REMOVE DUPLICATE
+  let search = recipesAppliances;
+
+  const duplicateItems = [];
+  search = search.filter((element) => {
+    if (element.id in duplicateItems) {
+      return false;
+    }
+    duplicateItems[element.id] = true;
+    return true;
+  });
+  return search;
+}
+
+function searchDevice(arr, input) {
+    const recipesDevices = arr.map((element) => {
+      const { devices } = element;
+      return devices.filter((item) => {
+        const elementNormalized = normalizeData(item);
+        return elementNormalized.includes(input);
+      });
+    });
+
+    const matchingElementIndex = [];
+    const isNotEmpty = (element) => element.length > 0;
+    for (const item of recipesDevices) {
+      if (item.findIndex(isNotEmpty) === 0) {
+        matchingElementIndex.push(recipesDevices.indexOf(item));
+      }
+    }
+    const searchByDevices = [];
+    for (const i of matchingElementIndex) {
+      searchByDevices.push(arr[i]);
+    }
+   
+  ///REMOVE DUPLICATE
+  let search = searchByDevices;
+  const duplicateItems = [];
+  search = search.filter((element) => {
+    if (element.id in duplicateItems) {
+      return false;
+    }
+    duplicateItems[element.id] = true;
+    return true;
+  });
+  return search;
+}
+
+
+export { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice };
