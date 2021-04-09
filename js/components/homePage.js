@@ -2,7 +2,7 @@ import recipes from './recipes.js';
 import displayRecipe from './displayRecipes.js';
 import {
   normalizeData,
-  observeChangesOnTagSection,
+  observeChangesOnIngredientTagSection,
   closeSearchFieldWhenUserClickElswhere,
   displayElements,
   removeDuplicate,
@@ -14,17 +14,19 @@ import {
   searchAppliance,
   searchDevice,
 } from './queryFunction.js';
+import { reloadSearch } from './reloadSearch.js'
 
 
 
 const searchInput = document.querySelector('#searchInput');
 const resultSection = document.querySelector('.result');
 
+let inputNormalized;
 let globalSearch;
 let globalIngredient;
 let globalAppliance;
 let globalDevice;
-let IngredientTagsArray = [];
+let ingredientTagsArray = [];
 let applianceTagsArray = [];
 let deviceTagsArray = [];
 
@@ -49,15 +51,14 @@ const tagSection = document.querySelector('.search__tags__Ingredients');
 
 searchInput.addEventListener('input', (e) => {
   const input = e.target.value;
-  const inputNormalized = normalizeData(input);
+  inputNormalized = normalizeData(input);
   tagSection.innerHTML = '';
-  IngredientTagsArray = [];
+  ingredientTagsArray = [];
   applianceTagsArray = [];
   deviceTagsArray = [];
 
   if (inputNormalized.length >= 3) {
     globalSearch = searchQuery(recipes, inputNormalized);
-     // console.log(globalSearch);
     if (globalSearch.length < 1) {
       resultSection.innerHTML = `<p class='error-result'>Pas de recettes à afficher pour cette recherche.</p>`;
       listIngredient.innerHTML = '';
@@ -94,7 +95,6 @@ const searchInputDevice = document.querySelector('#UstencilesInput');
 searchInputIngredient.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  //globalIngredient = globalSearch.flatMap((element) => element.ingredients);
   displayListElement(globalIngredient, 'ingredient', inputNormalized, 'Ingredients');
 });
 
@@ -153,7 +153,6 @@ filterElementAppliance.addEventListener('click', () => {
     articleDevice.classList.remove('larger');
     searchInputAppliance.value = '';
     searchInputAppliance.focus();
-    // displayListElement(globalSearch, 'appliance', '', 'Appareils');
   }
 });
 
@@ -172,16 +171,8 @@ filterElementDevice.addEventListener('click', () => {
     articleAppliance.classList.remove('larger');
     searchInputDevice.value = '';
     searchInputDevice.focus();
-    // displayListElement(globalSearch, 'devices', '', 'Ustenciles');
   }
 });
-
-// inputListeners(globalIngredient, globalSearch);
-
-observeChangesOnTagSection();
-closeSearchFieldWhenUserClickElswhere()
-
-
 
 const IngredientList = document.querySelector(
   `.search__filter__list.--Ingredients`
@@ -195,18 +186,16 @@ const observer = new MutationObserver(() => {
     item.addEventListener('click', () => {
       item.remove();
       globalIngredient = globalIngredient.filter(element => element.ingredient !== item.innerText);
-      IngredientTagsArray.push(item.innerText);
-      IngredientTagsArray = removeDuplicate(IngredientTagsArray);
-      console.log(IngredientTagsArray);
-      const tagsDisplayed = IngredientTagsArray.map((element) => {
+      ingredientTagsArray.push(item.innerText);
+      ingredientTagsArray = removeDuplicate(ingredientTagsArray);
+      console.log(ingredientTagsArray);
+      const tagsDisplayed = ingredientTagsArray.map((element) => {
         return `<span class='search__tags__item --Ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
       }).join('');
 
     const tagSection = document.querySelector('.search__tags__Ingredients');
     tagSection.innerHTML = tagsDisplayed;
   
-      
-    
       const tagInput = normalizeData(item.innerText);
       globalSearch = searchIngredient(globalSearch, tagInput);
       resultSection.innerHTML = displayRecipe(globalSearch);
@@ -287,6 +276,7 @@ const observerDevice = new MutationObserver(() => {
       );
       deviceTagsArray.push(item.innerText);
       deviceTagsArray = removeDuplicate(deviceTagsArray);
+      console.log(deviceTagsArray);
       const tagsDisplayed = deviceTagsArray
         .map((element) => {
           return `<span class='search__tags__item --Ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
@@ -298,10 +288,12 @@ const observerDevice = new MutationObserver(() => {
 
       const tagInput = normalizeData(item.innerText);
       globalSearch = searchDevice(globalSearch, tagInput);
-    resultSection.innerHTML = displayRecipe(globalSearch);
+      resultSection.innerHTML = displayRecipe(globalSearch);
+      
       globalDevice = globalSearch.filter(
-        (element) => element.devices !== item.innerText
+        (element) => element.devices !== tagInput
       );
+      console.log(globalDevice);
       displayListElement(globalDevice, 'devices', '', 'Ustenciles');
       
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
@@ -315,6 +307,105 @@ const observerDevice = new MutationObserver(() => {
 });
 observerDevice.observe(deviceList, { subtree: true, childList: true });
 
+
+
+  const ingredientsTagSection = document.querySelector('.search__tags__Ingredients');
+  const ingredientTagObserver = new MutationObserver(() => {
+    const tags = document.querySelectorAll('.search__tags__item');
+    if (tags !== null) {
+      for (let i = 0; i < tags.length; i++) {
+        const closeButton = document.querySelectorAll('#close');
+        closeButton[i].addEventListener('click', () => {
+          tags[i].remove();
+          globalIngredient.push({ ingredient: tags[i].innerText, quantity: '', unit: '' });
+          ingredientTagsArray = ingredientTagsArray.filter(
+            element => element !== tags[i].innerText
+          );
+          console.log(globalIngredient);
+          displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+          console.log(ingredientTagsArray);
+
+          reloadSearch(
+            ingredientTagsArray,
+            applianceTagsArray,
+            deviceTagsArray,
+            inputNormalized
+          );
+          
+        });
+      }
+    }
+  });
+ingredientTagObserver.observe(ingredientsTagSection, {
+  subtree: true,
+  childList: true,
+});
+
+const applianceTagSection = document.querySelector(
+  '.search__tags__Appareils'
+);
+const applianceTagObserver = new MutationObserver(() => {
+  const tags = document.querySelectorAll('.search__tags__item');
+  if (tags !== null) {
+    for (let i = 0; i < tags.length; i++) {
+      const closeButton = document.querySelectorAll('#close');
+      closeButton[i].addEventListener('click', () => {
+        tags[i].remove();
+        globalAppliance.push(tags[i].innerText);
+        applianceTagsArray = applianceTagsArray.filter(
+          (element) => element !== tags[i].innerText
+        );
+        console.log(globalAppliance);
+        displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+        console.log(applianceTagsArray);
+
+        reloadSearch(
+          ingredientTagsArray,
+          applianceTagsArray,
+          deviceTagsArray,
+          inputNormalized
+        );
+      });
+    }
+  }
+});
+applianceTagObserver.observe(applianceTagSection, {
+  subtree: true,
+  childList: true,
+});
+
+const deviceTagSection = document.querySelector('.search__tags__Ustenciles');
+const deviceTagObserver = new MutationObserver(() => {
+  const tags = document.querySelectorAll('.search__tags__item');
+  if (tags !== null) {
+    for (let i = 0; i < tags.length; i++) {
+      const closeButton = document.querySelectorAll('#close');
+      closeButton[i].addEventListener('click', () => {
+        tags[i].remove();
+        globalDevice.push(tags[i].innerText);
+        deviceTagsArray = deviceTagsArray.filter(
+          (element) => element !== tags[i].innerText
+        );
+        console.log(globalDevice);
+        displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+        console.log(deviceTagsArray);
+
+        reloadSearch(
+          ingredientTagsArray,
+          applianceTagsArray,
+          deviceTagsArray,
+          inputNormalized
+        );
+      });
+    }
+  }
+});
+deviceTagObserver.observe(deviceTagSection, {
+  subtree: true,
+  childList: true,
+});
+  
+closeSearchFieldWhenUserClickElswhere();
 
 
 

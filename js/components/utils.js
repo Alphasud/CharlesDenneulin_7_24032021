@@ -48,8 +48,8 @@ function displayElements() {
   form.reset();
 }
 
-function observeChangesOnTagSection() {
-  const tagSection = document.querySelector('.search__tags');
+function observeChangesOnIngredientTagSection(arr) {
+  const ingredientsTagSection = document.querySelector('.search__tags__Ingredients');
   const observer = new MutationObserver(() => {
     const tags = document.querySelectorAll('.search__tags__item');
     if (tags !== null) {
@@ -57,12 +57,11 @@ function observeChangesOnTagSection() {
         const closeButton = document.querySelectorAll('#close');
         closeButton[i].addEventListener('click', () => {
           tags[i].remove();
-          
         });
       }
     }
   });
-  observer.observe(tagSection, { subtree: true, childList: true });
+  observer.observe(ingredientsTagSection, { subtree: true, childList: true });
 }
 
 function closeSearchFieldWhenUserClickElswhere() {
@@ -112,7 +111,7 @@ function closeSearchFieldWhenUserClickElswhere() {
 export {
   normalizeData,
   removeDuplicate,
-  observeChangesOnTagSection,
+  observeChangesOnIngredientTagSection,
   closeSearchFieldWhenUserClickElswhere,
   displayElements,
 };
