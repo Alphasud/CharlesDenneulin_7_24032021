@@ -3,13 +3,14 @@ import displayRecipe from './displayRecipes.js';
 import recipes from './recipes.js'
 import { normalizeData } from './utils.js'
 
+///////////////REALOAD THE RECIPES DEPENDING ON TAGS///////////////////
 function reloadSearch(arr1, arr2, arr3, inputNormalized) {
     const resultSection = document.querySelector('.result');
     let globalSearch;
     let globalAppliance;
     let globalIngredient;
     let globalDevice;
-    
+
   if (arr1.length > 0) {
     console.log('ARR1 > 0');
      globalSearch = searchQuery(recipes, inputNormalized);

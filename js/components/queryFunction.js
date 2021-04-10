@@ -1,15 +1,15 @@
 import recipes from './recipes.js';
 import { normalizeData, removeDuplicate } from './utils.js';
 
-
+///////////////MAIN SEARCH : SEARCH IN NAME, INGREDIENTS, DESCRIPTION/////////////////////
 function searchQuery(arr, input) {
-  /// ///FITLER BY NAME
+  //FITLER BY NAME:
   const searchByName = arr.filter((element) => {
     const elementNormalized = normalizeData(element.name);
     return elementNormalized.includes(input);
   });
 
-  /// ///FILTER BY INGREDIENTS
+  //FILTER BY INGREDIENTS:
   const recipesIngredients = arr.map((element) => {
     const { ingredients } = element;
     const allIngredient = ingredients.map((el) => el.ingredient);
@@ -29,17 +29,18 @@ function searchQuery(arr, input) {
   for (const i of matchingElementIndex) {
     searchByIngredient.push(recipes[i]);
   }
-  /// ///FILTER BY DESCRIPTION
+  //FILTER BY DESCRIPTION:
   const searchByDescription = arr.filter((element) => {
     const elementNormalized = normalizeData(element.description);
     return elementNormalized.includes(input);
   });
 
-  /// ///REMOVE DUPLICATE
+  //REMOVE DUPLICATE:
   let search = searchByName.concat(
     searchByIngredient,
     searchByDescription
   );
+
 
   const duplicateItems = [];
   search = search.filter((element) => {
@@ -52,6 +53,7 @@ function searchQuery(arr, input) {
   return search;
 }
 
+///////////////DISPLAY INGREDIENTS, APPLIANCE, DEVICES IN ADVANCED SEARCH/////////////////////
 function displayListElement(arr, type, input, name ) {
     const arrayOfDevices = arr.flatMap((element) => element[type]);
   if (input !== '') {
@@ -76,7 +78,6 @@ function displayListElement(arr, type, input, name ) {
       const result = document.querySelectorAll(
         `.search__filter__list__item.--${name}`
       );
-      // selectTag(deviceSearchResultWithoutDuplicate, result, name);
     } else {
       const listDevice = document.querySelector(
         `.search__filter__list.--${name}`
@@ -102,13 +103,13 @@ function displayListElement(arr, type, input, name ) {
     const result = document.querySelectorAll(
       `.search__filter__list__item.--${name}`
     );
-    // selectTag(deviceSearchResultWithoutDuplicate, result, name);
   }
   
 }
 
+
+///////////////SEARCH IN INGREDIENTS/////////////////////
 function searchIngredient(arr, input) {
-  /// ///FILTER IN INGREDIENTS
   const recipesIngredients = arr.map((element) => {
     const { ingredients } = element;
     const allIngredient = ingredients.map((el) => el.ingredient);
@@ -129,7 +130,7 @@ function searchIngredient(arr, input) {
     searchByIngredient.push(arr[i]);
   }
 
-   ///REMOVE DUPLICATE
+   //REMOVE DUPLICATE
     let search = searchByIngredient;
 
   const duplicateItems = [];
@@ -144,13 +145,13 @@ function searchIngredient(arr, input) {
   
 }
 
+///////////////SEARCH IN APPLIANCES/////////////////////
 function searchAppliance(arr, input) {
-    /// ///SEARCH IN APPLIANCES
     const recipesAppliances = arr.filter((element) => {
         const allApliances = element.appliance;
         return normalizeData(allApliances).includes(input);  
     });
-  ///REMOVE DUPLICATE
+  //REMOVE DUPLICATE
   let search = recipesAppliances;
 
   const duplicateItems = [];
@@ -164,6 +165,7 @@ function searchAppliance(arr, input) {
   return search;
 }
 
+///////////////SEARCH IN DEVICE/////////////////////
 function searchDevice(arr, input) {
     const recipesDevices = arr.map((element) => {
       const { devices } = element;
@@ -185,7 +187,7 @@ function searchDevice(arr, input) {
       searchByDevices.push(arr[i]);
     }
    
-  ///REMOVE DUPLICATE
+  //REMOVE DUPLICATE
   let search = searchByDevices;
   const duplicateItems = [];
   search = search.filter((element) => {

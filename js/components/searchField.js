@@ -1,3 +1,4 @@
+//////////////THIS CLASS CREATE THE DROPDOWN ADVANCED SEARCH BUTTONS///////////////
 class SearchField {
   constructor() {
     // eslint-disable-next-line func-names

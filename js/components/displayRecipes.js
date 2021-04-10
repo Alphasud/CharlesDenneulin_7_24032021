@@ -1,3 +1,4 @@
+//////////////THIS FUNCTION MAP THROUGH THE RECIPES ARRAY AND DISPLAY THEM///////////////
 function displayRecipe(array) {
   const recipeResult = array
     .map((element) => {

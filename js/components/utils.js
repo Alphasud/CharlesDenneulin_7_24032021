@@ -2,6 +2,7 @@ import SearchField from './searchField.js';
 import displayRecipe from './displayRecipes.js';
 import recipes from './recipes.js';
 
+///////////////NORMALIZE DATAS/////////////////////
 function normalizeData(string) {
   return string
     .toLowerCase()
@@ -9,6 +10,7 @@ function normalizeData(string) {
     .replace(/[\u0300-\u036f]/g, '');
 }
 
+///////////////REMOVE DUPLICATE/////////////////////
 function removeDuplicate(array) {
   const duplicateItems = [];
   const noDuplicate = array.filter((element) => {
@@ -21,11 +23,13 @@ function removeDuplicate(array) {
   return noDuplicate;
 }
 
+///////////////DISPLAY ELEMENTS/////////////////////
 function displayElements() {
   const resultSection = document.querySelector('.result');
   const form = document.querySelector('#form');
   const searchFilter = document.querySelector('.search__filter');
-  /// DISPLAY SEARCH BUTTON///
+
+  //DISPLAY SEARCH BUTTON:
   const advancedSearchField = new SearchField();
 
   const deviceAdvancedSearch = advancedSearchField.createSearchField(
@@ -43,29 +47,13 @@ function displayElements() {
   );
   searchFilter.insertAdjacentHTML('afterbegin', ingredientsAdvancedSearch);
 
-  /// /DISPLAY ALL RECIPE ON PAGE LOAD/////
+  //DISPLAY ALL RECIPE ON PAGE LOAD:
   resultSection.innerHTML = displayRecipe(recipes);
   form.reset();
 }
 
-function observeChangesOnIngredientTagSection(arr) {
-  const ingredientsTagSection = document.querySelector('.search__tags__Ingredients');
-  const observer = new MutationObserver(() => {
-    const tags = document.querySelectorAll('.search__tags__item');
-    if (tags !== null) {
-      for (let i = 0; i < tags.length; i++) {
-        const closeButton = document.querySelectorAll('#close');
-        closeButton[i].addEventListener('click', () => {
-          tags[i].remove();
-        });
-      }
-    }
-  });
-  observer.observe(ingredientsTagSection, { subtree: true, childList: true });
-}
-
+////////CLOSE EACH DROPDOWN MENUS WHEN USER CLICK ELESEWHERE///////
 function closeSearchFieldWhenUserClickElswhere() {
-  /// CLOSE DOPDOWN MENU WHEN USER CLICK ELSEWHERE//////
   const advancedIngredientSearch = document.querySelector(
     '.article-Ingredients'
   );
@@ -111,7 +99,6 @@ function closeSearchFieldWhenUserClickElswhere() {
 export {
   normalizeData,
   removeDuplicate,
-  observeChangesOnIngredientTagSection,
   closeSearchFieldWhenUserClickElswhere,
   displayElements,
 };
