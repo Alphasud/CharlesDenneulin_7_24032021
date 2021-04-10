@@ -1,12 +1,13 @@
-import { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice } from './queryFunction.js'
+import { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice } from './queryFunction.js';
 import displayRecipe from './displayRecipes.js';
-import recipes from './recipes.js'
-import { normalizeData } from './utils.js'
+import recipes from './recipes.js';
+import { normalizeData } from './utils.js';
+
 
 ///////////////REALOAD THE RECIPES DEPENDING ON TAGS///////////////////
-function reloadSearch(arr1, arr2, arr3, inputNormalized) {
+function reloadSearch(arr1, arr2, arr3, inputNormalized, globalSearch) {
     const resultSection = document.querySelector('.result');
-    let globalSearch;
+  
     let globalAppliance;
     let globalIngredient;
     let globalDevice;
@@ -88,6 +89,9 @@ function reloadSearch(arr1, arr2, arr3, inputNormalized) {
     globalDevice = globalSearch;
     displayListElement(globalDevice, 'devices', '', 'Ustenciles');
   }
+
+  return globalSearch;
 }
+
 
 export { reloadSearch };

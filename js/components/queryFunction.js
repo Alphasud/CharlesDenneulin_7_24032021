@@ -50,6 +50,7 @@ function searchQuery(arr, input) {
     duplicateItems[element.id] = true;
     return true;
   });
+  
   return search;
 }
 

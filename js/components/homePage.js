@@ -242,8 +242,10 @@ const observerAppliance = new MutationObserver(() => {
       const tagSection = document.querySelector('.search__tags__Appareils');
       tagSection.innerHTML = tagsDisplayed;
 
-       const tagInput = normalizeData(item.innerText);
-    globalSearch = searchAppliance(globalSearch, tagInput);
+      const tagInput = normalizeData(item.innerText);
+  console.log(globalSearch);
+      globalSearch = searchAppliance(globalSearch, tagInput);
+      
     resultSection.innerHTML = displayRecipe(globalSearch);
       globalAppliance = globalSearch.filter(
         (element) => element.appliance !== item.innerText
@@ -326,11 +328,12 @@ observerDevice.observe(deviceList, { subtree: true, childList: true });
           displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
           console.log(ingredientTagsArray);
 
-          reloadSearch(
+          globalSearch = reloadSearch(
             ingredientTagsArray,
             applianceTagsArray,
             deviceTagsArray,
-            inputNormalized
+            inputNormalized,
+            globalSearch
           );
           
         });
@@ -354,6 +357,7 @@ const applianceTagObserver = new MutationObserver(() => {
       closeButton[i].addEventListener('click', () => {
         tags[i].remove();
         globalAppliance.push(tags[i].innerText);
+        globalAppliance = removeDuplicate(globalAppliance);
         applianceTagsArray = applianceTagsArray.filter(
           (element) => element !== tags[i].innerText
         );
@@ -361,11 +365,12 @@ const applianceTagObserver = new MutationObserver(() => {
         displayListElement(globalAppliance, 'appliance', '', 'Appareils');
         console.log(applianceTagsArray);
 
-        reloadSearch(
+        globalSearch = reloadSearch(
           ingredientTagsArray,
           applianceTagsArray,
           deviceTagsArray,
-          inputNormalized
+          inputNormalized,
+          globalSearch
         );
       });
     }
@@ -394,11 +399,12 @@ const deviceTagObserver = new MutationObserver(() => {
         displayListElement(globalDevice, 'devices', '', 'Ustenciles');
         console.log(deviceTagsArray);
 
-        reloadSearch(
+        globalSearch = reloadSearch(
           ingredientTagsArray,
           applianceTagsArray,
           deviceTagsArray,
-          inputNormalized
+          inputNormalized,
+          globalSearch
         );
       });
     }
