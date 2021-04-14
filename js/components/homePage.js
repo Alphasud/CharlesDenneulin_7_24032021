@@ -184,11 +184,8 @@ const observerIngredients = new MutationObserver(() => {
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
-      item.remove();
-      globalIngredient = globalIngredient.filter(element => element.ingredient !== item.innerText);
       ingredientTagsArray.push(item.innerText);
       ingredientTagsArray = removeDuplicate(ingredientTagsArray);
-      console.log(ingredientTagsArray);
       const tagsDisplayed = ingredientTagsArray.map((element) => {
         return `<span class='search__tags__item --Ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
       }).join('');
@@ -200,9 +197,13 @@ const observerIngredients = new MutationObserver(() => {
       globalSearch = searchIngredient(globalSearch, tagInput);
       resultSection.innerHTML = displayRecipe(globalSearch);
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
-      globalIngredient = globalIngredient.filter(
-        (element) => element.ingredient !== item.innerText
-      );
+
+      for (let i of ingredientTagsArray) {
+        globalIngredient = globalIngredient.filter(
+          (element) => element.ingredient !== i
+        );
+      }
+
       displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
       
       globalAppliance = globalSearch;
@@ -210,6 +211,8 @@ const observerIngredients = new MutationObserver(() => {
 
       globalDevice = globalSearch;
       displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+
+
   });
   }
 
@@ -226,13 +229,8 @@ const observerAppliance = new MutationObserver(() => {
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
-      item.remove();
-      globalAppliance = globalSearch.filter(
-        (element) => element.appliance !== item.innerText
-      );
       applianceTagsArray.push(item.innerText);
       applianceTagsArray = removeDuplicate(applianceTagsArray);
-      console.log(applianceTagsArray);
       const tagsDisplayed = applianceTagsArray
         .map((element) => {
           return `<span class='search__tags__item --Appareils'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
@@ -243,13 +241,14 @@ const observerAppliance = new MutationObserver(() => {
       tagSection.innerHTML = tagsDisplayed;
 
       const tagInput = normalizeData(item.innerText);
-  console.log(globalSearch);
-      globalSearch = searchAppliance(globalSearch, tagInput);
-      
-    resultSection.innerHTML = displayRecipe(globalSearch);
-      globalAppliance = globalSearch.filter(
-        (element) => element.appliance !== item.innerText
-      );
+      globalSearch = searchAppliance(globalSearch, tagInput);  
+      resultSection.innerHTML = displayRecipe(globalSearch);
+      for (let i of applianceTagsArray) {
+        globalAppliance = globalSearch.filter(
+          (element) => element.appliance !== i
+        );
+      }
+
       displayListElement(globalAppliance, 'appliance', '', 'Appareils');
       
       globalDevice = globalSearch;
@@ -268,17 +267,14 @@ const deviceList = document.querySelector(
 );
 const observerDevice = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    '.search__filter__list__item.--Ustenciles'
+    `.search__filter__list__item.--Ustenciles`
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
-      item.remove();
-      globalDevice = globalDevice.filter(
-        (element) => element.devices !== item.innerText
-      );
+      const tagInput = normalizeData(item.innerText);
       deviceTagsArray.push(item.innerText);
       deviceTagsArray = removeDuplicate(deviceTagsArray);
-      console.log(deviceTagsArray);
+
       const tagsDisplayed = deviceTagsArray
         .map((element) => {
           return `<span class='search__tags__item --Ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
@@ -288,14 +284,15 @@ const observerDevice = new MutationObserver(() => {
       const tagSection = document.querySelector('.search__tags__Ustenciles');
       tagSection.innerHTML = tagsDisplayed;
 
-      const tagInput = normalizeData(item.innerText);
       globalSearch = searchDevice(globalSearch, tagInput);
       resultSection.innerHTML = displayRecipe(globalSearch);
-      
-      globalDevice = globalSearch.filter(
-        (element) => element.devices !== tagInput
-      );
-      console.log(globalDevice);
+
+      let device = globalSearch.flatMap((element) => element.devices);
+      for (let i of deviceTagsArray) {
+        device = device.filter((element) => element !== i);
+      }
+      globalDevice = [{ devices: device }]
+
       displayListElement(globalDevice, 'devices', '', 'Ustenciles');
       
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
@@ -324,10 +321,9 @@ observerDevice.observe(deviceList, { subtree: true, childList: true });
           ingredientTagsArray = ingredientTagsArray.filter(
             element => element !== tags[i].innerText
           );
-          console.log(globalIngredient);
+        
           displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
-          console.log(ingredientTagsArray);
-
+          
           globalSearch = reloadSearch(
             ingredientTagsArray,
             applianceTagsArray,
@@ -361,9 +357,8 @@ const applianceTagObserver = new MutationObserver(() => {
         applianceTagsArray = applianceTagsArray.filter(
           (element) => element !== tags[i].innerText
         );
-        console.log(globalAppliance);
+
         displayListElement(globalAppliance, 'appliance', '', 'Appareils');
-        console.log(applianceTagsArray);
 
         globalSearch = reloadSearch(
           ingredientTagsArray,
@@ -391,13 +386,15 @@ const deviceTagObserver = new MutationObserver(() => {
       const closeButton = document.querySelectorAll('#close');
       closeButton[i].addEventListener('click', () => {
         tags[i].remove();
-        globalDevice.push(tags[i].innerText);
+       // globalDevice.devices.push(tags[i].innerText);
+        for (let el of globalDevice) {
+          el.devices.push(tags[i].innerText);
+        }
         deviceTagsArray = deviceTagsArray.filter(
           (element) => element !== tags[i].innerText
         );
-        console.log(globalDevice);
+
         displayListElement(globalDevice, 'devices', '', 'Ustenciles');
-        console.log(deviceTagsArray);
 
         globalSearch = reloadSearch(
           ingredientTagsArray,

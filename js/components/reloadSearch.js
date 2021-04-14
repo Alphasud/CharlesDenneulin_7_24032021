@@ -32,50 +32,53 @@ function reloadSearch(arr1, arr2, arr3, inputNormalized, globalSearch) {
       globalDevice = globalSearch;
       displayListElement(globalDevice, 'devices', '', 'Ustenciles');
     });
-  } else if (arr2.length > 0) {
+  }
+  if (arr2.length > 0) {
     console.log('ARR2 > 0');
     globalSearch = searchQuery(recipes, inputNormalized);
     arr2.forEach((element) => {
       const itemNormalized = normalizeData(element);
       globalSearch = searchAppliance(globalSearch, itemNormalized);
-      console.log(globalSearch);
       resultSection.innerHTML = displayRecipe(globalSearch);
+
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
-      globalIngredient = globalIngredient.filter(
-        (elem) => elem.ingredient !== element
-      );
       displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
 
-      globalAppliance = globalSearch;
+      globalAppliance = globalSearch.flatMap((element => element.appliance));
+      globalAppliance = globalAppliance.filter((elem) => elem !== element);
       displayListElement(globalAppliance, 'appliance', '', 'Appareils');
 
       globalDevice = globalSearch;
       displayListElement(globalDevice, 'devices', '', 'Ustenciles');
     });
-  } else if (arr3.length > 0) {
+  }
+  if (arr3.length > 0) {
     console.log('ARR3 > 0');
     globalSearch = searchQuery(recipes, inputNormalized);
     arr3.forEach((element) => {
       const itemNormalized = normalizeData(element);
       globalSearch = searchDevice(globalSearch, itemNormalized);
-      console.log(globalSearch);
       resultSection.innerHTML = displayRecipe(globalSearch);
+
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
-      globalIngredient = globalIngredient.filter(
-        (elem) => elem.ingredient !== element
-      );
       displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
 
       globalAppliance = globalSearch;
       displayListElement(globalAppliance, 'appliance', '', 'Appareils');
 
-      globalDevice = globalSearch;
+      let device = globalSearch.flatMap((element) => element.devices);
+      for (let i of arr3) {
+        device = device.filter((element) => element !== i);
+      }
+      globalDevice = [{ devices: device }];
       displayListElement(globalDevice, 'devices', '', 'Ustenciles');
     });
-  } else {
+
+  }
+
+  if (arr1.length === 0 && arr2.length === 0 && arr3.length === 0) {
     console.log('ELSE');
     globalSearch = searchQuery(recipes, inputNormalized);
-    console.log(globalSearch);
     resultSection.innerHTML = displayRecipe(globalSearch);
     globalIngredient = globalSearch.flatMap((element) => element.ingredients);
     globalIngredient = globalIngredient.filter(

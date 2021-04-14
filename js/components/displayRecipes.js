@@ -1,6 +1,13 @@
 //////////////THIS FUNCTION MAP THROUGH THE RECIPES ARRAY AND DISPLAY THEM///////////////
 function displayRecipe(array) {
-  const recipeResult = array
+  const arraySorted = array.sort(function (a, b) {
+    let x = a.name;
+    let y = b.name;
+    if (x > y) return 1;
+    if (x < y) return -1;
+    return 0;
+  });
+  const recipeResult = arraySorted
     .map((element) => {
       const { name } = element;
       const { time } = element;

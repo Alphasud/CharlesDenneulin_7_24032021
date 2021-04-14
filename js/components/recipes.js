@@ -16,7 +16,7 @@ const recipes = [
       {
         ingredient: 'Crème de coco',
         quantity: 2,
-        unit: 'cuillères à soupe',
+        unit: 'cl',
       },
       {
         ingredient: 'Sucre',

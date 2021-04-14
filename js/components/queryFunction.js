@@ -45,54 +45,55 @@ function searchQuery(arr, input) {
 
   //REMOVE DUPLICATE:
   const searchWithNoDuplicate = [...new Set(search)];
-  return searchWithNoDuplicate;
+  return searchWithNoDuplicate.sort();
 }
 
 ///////////////DISPLAY INGREDIENTS, APPLIANCE, DEVICES IN ADVANCED SEARCH/////////////////////
 function displayListElement(arr, type, input, name ) {
-    const arrayOfDevices = arr.flatMap((element) => element[type]);
+  const arrayOfElement = arr.flatMap((element) => element[type]);
+  arrayOfElement.sort();
   if (input !== '') {
-    const arrayOfDevicesFiltered = arrayOfDevices.filter((element) => {
+    const arrayOfElementFiltered = arrayOfElement.filter((element) => {
       const elementNormalized = normalizeData(element);
       return elementNormalized.includes(input);
     });
-    const deviceSearchResultWithoutDuplicate = removeDuplicate(
-      arrayOfDevicesFiltered
+    const elementSearchResultWithoutDuplicate = removeDuplicate(
+      arrayOfElementFiltered
     );
-    const resultDisplayed = deviceSearchResultWithoutDuplicate
+    const resultDisplayed = elementSearchResultWithoutDuplicate
       .map(
         (element) =>
           `<li class='search__filter__list__item  --${name}'>${element}</li>`
       )
       .join('');
     if (resultDisplayed.length > 0) {
-      const listDevice = document.querySelector(
+      const listElement = document.querySelector(
         `.search__filter__list.--${name}`
       );
-      listDevice.innerHTML = resultDisplayed;
+      listElement.innerHTML = resultDisplayed;
       
     } else {
-      const listDevice = document.querySelector(
+      const listElement = document.querySelector(
         `.search__filter__list.--${name}`
       );
-      listDevice.innerHTML = `<li class="search__filter__list__item__error --${name}">
+      listElement.innerHTML = `<li class="search__filter__list__item__error --${name}">
               Pas de résultats
             </li>`;
     }
   } else {
-    arrayOfDevices.map((element) => element);
-    const deviceSearchResultWithoutDuplicate = removeDuplicate(arrayOfDevices);
-    const resultDisplayed = deviceSearchResultWithoutDuplicate
+    arrayOfElement.map((element) => element);
+    const elementSearchResultWithoutDuplicate = removeDuplicate(arrayOfElement);
+    const resultDisplayed = elementSearchResultWithoutDuplicate
       .map(
         (element) =>
           `<li class='search__filter__list__item  --${name}'>${element}</li>`
       )
       .join('');
 
-    const listDevice = document.querySelector(
+    const listElement = document.querySelector(
       `.search__filter__list.--${name}`
     );
-    listDevice.innerHTML = resultDisplayed;
+    listElement.innerHTML = resultDisplayed;
     
   }
   
