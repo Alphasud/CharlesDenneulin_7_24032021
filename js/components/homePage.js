@@ -64,7 +64,7 @@ searchInput.addEventListener('input', (e) => {
       listAppliance.innerHTML = '';
       listDevice.innerHTML = '';
     } else {
-      resultSection.innerHTML = displayRecipe(globalSearch);
+      resultSection.innerHTML = algoTwo(globalSearch);
       globalIngredient = globalSearch.flatMap(
         (element) => element.ingredients
       );

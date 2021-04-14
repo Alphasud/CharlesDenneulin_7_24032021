@@ -2,52 +2,34 @@ import recipes from './recipes.js';
 import { normalizeData, removeDuplicate } from './utils.js';
 
 ///////////////MAIN SEARCH : SEARCH IN NAME, INGREDIENTS, DESCRIPTION/////////////////////
-function searchQuery(arr, input) {
-  //FITLER BY NAME:
-  const searchByName = arr.filter((element) => {
-    const elementNormalized = normalizeData(element.name);
-    return elementNormalized.includes(input);
-  });
-  
-  //FILTER BY INGREDIENTS:
-  const recipesIngredients = arr.map((element) => {
-    const { ingredients } = element;
-    const allIngredient = ingredients.map((el) => el.ingredient);
-    return allIngredient.filter((item) => {
-      const elementNormalized = normalizeData(item);
-      return elementNormalized.includes(input);
-    });
-  });
- 
-  const matchingElementIndex = [];
-    const isNotEmpty = (element) => element.length > 0;
-  for (const item of recipesIngredients) {
-    if (item.findIndex(isNotEmpty) === 0) {
-      matchingElementIndex.push(recipesIngredients.indexOf(item));
+
+function algoTwo(arr, input) {
+  const nameResult = [];
+  const ingredientResult = [];
+  const descriptionResult = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    //FILTER BY NAME :
+    const nameNormalized = normalizeData(arr[i].name);
+    nameNormalized.includes(input) ? nameResult.push(arr[i]) : '';
+
+    //FILTER BY INGREDIENTS:
+    const allIngredients = arr[i].ingredients;
+    for (let z = 0; z < allIngredients.length; z++) {
+      const ingredientNormalized = normalizeData(allIngredients[z].ingredient);
+      ingredientNormalized.includes(input) ? ingredientResult.push(arr[i]) : '';
     }
-  }
-  
-  const searchByIngredient = [];
-  for (const i of matchingElementIndex) {
-    searchByIngredient.push(recipes[i]);
-  }
-  //FILTER BY DESCRIPTION:
-  const searchByDescription = arr.filter((element) => {
-    const elementNormalized = normalizeData(element.description);
-    return elementNormalized.includes(input);
-  });
 
+    //Filter BY DESCRIPTION:
+    const descriptionNormalized = normalizeData(arr[i].description);
+    descriptionNormalized.includes(input) ? descriptionResult.push(arr[i]) : '';
  
-  let search = searchByName.concat(
-    searchByIngredient,
-    searchByDescription
-  );
+  }
 
-  //REMOVE DUPLICATE:
-  const searchWithNoDuplicate = [...new Set(search)];
-  return searchWithNoDuplicate;
+  const result = nameResult.concat(ingredientResult, descriptionResult);
+  const resultWithNoDuplicate = [...new Set(result)];
+  return resultWithNoDuplicate;
 }
-
 ///////////////DISPLAY INGREDIENTS, APPLIANCE, DEVICES IN ADVANCED SEARCH/////////////////////
 function displayListElement(arr, type, input, name ) {
     const arrayOfDevices = arr.flatMap((element) => element[type]);
