@@ -7,7 +7,6 @@ import {
   removeDuplicate,
 } from './utils.js';
 import {
-  searchQuery,
   displayListElement,
   searchIngredient,
   searchAppliance,
@@ -56,15 +55,14 @@ searchInput.addEventListener('input', (e) => {
   deviceTagsArray = [];
 
   if (inputNormalized.length >= 3) {
-    globalSearch = searchQuery(recipes, inputNormalized);
-    algoTwo(recipes, inputNormalized);
+    globalSearch = algoTwo(recipes, inputNormalized);
     if (globalSearch.length < 1) {
       resultSection.innerHTML = `<p class='error-result'>Pas de recettes à afficher pour cette recherche.</p>`;
       listIngredient.innerHTML = '';
       listAppliance.innerHTML = '';
       listDevice.innerHTML = '';
     } else {
-      resultSection.innerHTML = algoTwo(globalSearch);
+      resultSection.innerHTML = displayRecipe(globalSearch);
       globalIngredient = globalSearch.flatMap(
         (element) => element.ingredients
       );

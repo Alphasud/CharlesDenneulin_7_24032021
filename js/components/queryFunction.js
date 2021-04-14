@@ -178,4 +178,4 @@ function searchDevice(arr, input) {
 }
 
 
-export { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice, algoTwo };
+export { displayListElement, searchIngredient, searchAppliance, searchDevice, algoTwo };
