@@ -260,7 +260,7 @@ const recipes = [
     description:
       "Etaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crême liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
     appliance: 'Four',
-    devices: ['moule à tartelettes (6)', 'casserole'],
+    devices: ['moule à tartelettes', 'casserole'],
   },
   {
     id: 8,
@@ -516,7 +516,7 @@ const recipes = [
     description:
       "Mélanger la farine et les oeufs, faire fondre 25 gr de beurre et ajouter à la pâte. Ajouter du sel. Laisser reposer 1 heure. Faire les galettes et laisser refroidire. Faire chauffer les saucisses avec du beurre et l'oignon. Enrouler les saucisses dans les crêpes avec une partie du fromage. Mettre le reste du fromage à raclette par dessus les crêpes. Passer four pendant 20 minutes",
     appliance: 'Four',
-    devices: ['poelle à frire', 'couteau'],
+    devices: ['poêle à frire', 'couteau'],
   },
   {
     id: 15,
@@ -555,7 +555,7 @@ const recipes = [
     time: 60,
     description:
       "Mélangez dans un saladier, la farine, les oeufs, et le lait. Battez jusqu'à avoir une masse homogène. Pendant ce temps faites fondre le beurre et ajoutez en une partie à la pâte à crêpes. Faire fondre le chocolat ( avec le reste du beurre salé ). Lorsque vous chauffez les crêpes. Ajouter le chocolat fondu et les bananes coupées en rondelles. Ajoutez une touche de chantilly pour les gourmands",
-    appliance: 'Poële à crêpe',
+    appliance: 'Poêle à crêpe',
     devices: ['saladier', 'louche', 'cuillère en bois'],
   },
   {
@@ -763,7 +763,7 @@ const recipes = [
     time: 30,
     description:
       'Cuisiner la viande hachée dans une poelle à frire. Dans une autre faire cuire les oignons découpés en fins dés avec un peu de beurre. Ajouter du vin rouge. Mélanger les oigons avec la viande hachée. Faire cuire les pates le temps indiqué sur le paquet. Ajouter le coulis de tomates à la viande hachée. Une fois que les pates sont cuites, ajouter la crème fraiche à la viande hachée. Serivir.',
-    appliance: 'Casserolle.',
+    appliance: 'Casserole.',
     devices: ['Cuillère en bois', 'louche', 'couteau'],
   },
   {
@@ -983,7 +983,7 @@ const recipes = [
     time: 15,
     description:
       "Faire fondre l'oseille avec du beurre demi sel, ajouter un litre d'eau. Ajouter les vermicelles. Laisser cuire. une foit prêt, sortir du feu et après 5 minutes ajouter le jaune d'oeuf et la crême fraîche",
-    appliance: 'Casserolle',
+    appliance: 'Casserole',
     devices: ['couteau', 'cuillère en bois'],
   },
   {
@@ -1020,7 +1020,7 @@ const recipes = [
     description:
       "Emincer les blanc de poireaux et les faire chauffer dans 25 gr de beurre. AJouter les pommes de terres coupées en morceaux. Ajouter l'eau et laisser mijoter pour 45 minutes. Chauffer l'oseille avec le beurre restant puis incorporer le tout. Mixez. Ajoutez la crème. Bon appetit.",
     appliance: 'Mixer',
-    devices: ['casserolle', 'couteau'],
+    devices: ['casserole', 'couteau'],
   },
   {
     id: 29,
@@ -1078,7 +1078,7 @@ const recipes = [
     description:
       "Mettre tous les ingrédients dans une cocotte. ajouter de l'eau pour recouvrir l'ensemble et laisser cuirre à petit feur pour 1 heure. Passer au mixer. Salez, poivrez. C'est prêt",
     appliance: 'Mixer',
-    devices: ['casserolle', 'cuillère en bois'],
+    devices: ['casserole', 'cuillère en bois'],
   },
   {
     id: 31,
@@ -1112,7 +1112,7 @@ const recipes = [
     time: 60,
     description:
       "Découper en cubes les carottes et pommes de terre. Faire revenir dans du beurre. Ajouter les lardons, une fois les lardons dorés, ajouter un grand verre d'eau. Ajouter les petit poids et les haricots verts ( tous deux pré cuits ). Ajouter Sel, poivre, thyms et laurier",
-    appliance: 'Poële',
+    appliance: 'Poêle',
     devices: ['Couteau', 'économe'],
   },
   {
@@ -1340,7 +1340,7 @@ const recipes = [
     description:
       "Couper les courgettes dans le sens de la longueur. Vider les courgette dans un saladier. Réserver.Faire revenir la chair des courgettes dans 25cl d'huile d'olive. Ajouter l'oignon puis la viande hachée. Mettre la farce dans les courgettes. Ajouter le coulis de tomates. Mettre au four pendant 30 minutes. Avant la fin de la cuisson ajouter le fromage rapé",
     appliance: 'Four',
-    devices: ['couteau', 'cuillère en bois', 'Poelle à frire'],
+    devices: ['couteau', 'cuillère en bois', 'Poêle à frire'],
   },
   {
     id: 38,
@@ -1371,7 +1371,7 @@ const recipes = [
     description:
       'Fouettez les oeufs, le sucre et le lait. tremper les tranches de pain. Le cuire au four pendant environ 10 minutes à 180°. Servir',
     appliance: 'Four',
-    devices: ['fouet', 'bol', 'Cuillère à Soupe'],
+    devices: ['fouet', 'bol', 'cuillère à Soupe'],
   },
   {
     id: 39,
@@ -1458,7 +1458,7 @@ const recipes = [
     time: 20,
     description:
       "Séparer les blancs d'oeufs. Faire fondre le chocolat au bain marie. Ajouter les jaunes et le sucre au chocolat hors du feu. Battre les blancs en neige. Ajouter les blancs au mélange de chocolat. Mélangez délicatement avec une spatule. Servir dans un plat ou dans des verres. Mettre au frais",
-    appliance: 'Casserolle',
+    appliance: 'Casserole',
     devices: ['fouet', 'spatule', 'verres'],
   },
   {
@@ -1559,7 +1559,7 @@ const recipes = [
     time: 15,
     description:
       'Mélanger la farine et le beurre fondu en ajoutant le lait peu à peu. Ajouter du sucre après la cuisson. Bien mélanger. Ajouter le chocolat en morceaux et laisser chauffer 8 minutes en mélangeant avec une cuillère en bois. Mettre dans des verres',
-    appliance: 'Casserolle',
+    appliance: 'Casserole',
     devices: ['cuillère en bois'],
   },
   {
@@ -1590,7 +1590,7 @@ const recipes = [
     time: 30,
     description:
       "Faire bouillir le lait ( on peut y ajouter de l'essence de vanille. Battre les oeufs et le sucre, ajouter la farine puis finalement ajouter le lait chaud. Remettre à feu doux pour faire épaissir en remuant pendant 5 à 10 minutes.",
-    appliance: 'Casserolle',
+    appliance: 'Casserole',
     devices: ['fouet', 'saladier'],
   },
   {
@@ -1773,5 +1773,12 @@ const recipes = [
     devices: ['rouleau à patisserie', 'fouet'],
   },
 ];
+
+recipes.map((element) => {
+  for (let i = 0; i < element.devices.length; i++) {
+    element.devices[i] =
+      element.devices[i].charAt(0).toUpperCase() + element.devices[i].slice(1);
+  }
+});
 
 export { recipes as default };

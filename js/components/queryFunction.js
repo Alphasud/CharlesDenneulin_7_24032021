@@ -52,6 +52,7 @@ function searchQuery(arr, input) {
 function displayListElement(arr, type, input, name ) {
   const arrayOfElement = arr.flatMap((element) => element[type]);
   arrayOfElement.sort();
+  
   if (input !== '') {
     const arrayOfElementFiltered = arrayOfElement.filter((element) => {
       const elementNormalized = normalizeData(element);
