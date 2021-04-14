@@ -12,6 +12,7 @@ import {
   searchIngredient,
   searchAppliance,
   searchDevice,
+  algoTwo,
 } from './queryFunction.js';
 import { reloadSearch } from './reloadSearch.js'
 
@@ -56,6 +57,7 @@ searchInput.addEventListener('input', (e) => {
 
   if (inputNormalized.length >= 3) {
     globalSearch = searchQuery(recipes, inputNormalized);
+    algoTwo(recipes, inputNormalized);
     if (globalSearch.length < 1) {
       resultSection.innerHTML = `<p class='error-result'>Pas de recettes à afficher pour cette recherche.</p>`;
       listIngredient.innerHTML = '';

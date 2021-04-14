@@ -8,7 +8,7 @@ function searchQuery(arr, input) {
     const elementNormalized = normalizeData(element.name);
     return elementNormalized.includes(input);
   });
-
+  
   //FILTER BY INGREDIENTS:
   const recipesIngredients = arr.map((element) => {
     const { ingredients } = element;
@@ -18,6 +18,7 @@ function searchQuery(arr, input) {
       return elementNormalized.includes(input);
     });
   });
+ 
   const matchingElementIndex = [];
     const isNotEmpty = (element) => element.length > 0;
   for (const item of recipesIngredients) {
@@ -25,6 +26,7 @@ function searchQuery(arr, input) {
       matchingElementIndex.push(recipesIngredients.indexOf(item));
     }
   }
+  
   const searchByIngredient = [];
   for (const i of matchingElementIndex) {
     searchByIngredient.push(recipes[i]);
@@ -35,23 +37,15 @@ function searchQuery(arr, input) {
     return elementNormalized.includes(input);
   });
 
-  //REMOVE DUPLICATE:
+ 
   let search = searchByName.concat(
     searchByIngredient,
     searchByDescription
   );
 
-
-  const duplicateItems = [];
-  search = search.filter((element) => {
-    if (element.id in duplicateItems) {
-      return false;
-    }
-    duplicateItems[element.id] = true;
-    return true;
-  });
-  
-  return search;
+  //REMOVE DUPLICATE:
+  const searchWithNoDuplicate = [...new Set(search)];
+  return searchWithNoDuplicate;
 }
 
 ///////////////DISPLAY INGREDIENTS, APPLIANCE, DEVICES IN ADVANCED SEARCH/////////////////////
@@ -202,4 +196,4 @@ function searchDevice(arr, input) {
 }
 
 
-export { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice };
+export { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice, algoTwo };
