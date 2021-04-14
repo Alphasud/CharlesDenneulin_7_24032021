@@ -70,9 +70,7 @@ function displayListElement(arr, type, input, name ) {
         `.search__filter__list.--${name}`
       );
       listDevice.innerHTML = resultDisplayed;
-      const result = document.querySelectorAll(
-        `.search__filter__list__item.--${name}`
-      );
+      
     } else {
       const listDevice = document.querySelector(
         `.search__filter__list.--${name}`
@@ -95,9 +93,7 @@ function displayListElement(arr, type, input, name ) {
       `.search__filter__list.--${name}`
     );
     listDevice.innerHTML = resultDisplayed;
-    const result = document.querySelectorAll(
-      `.search__filter__list__item.--${name}`
-    );
+    
   }
   
 }
@@ -127,17 +123,8 @@ function searchIngredient(arr, input) {
 
    //REMOVE DUPLICATE
     let search = searchByIngredient;
-
-  const duplicateItems = [];
-  search = search.filter((element) => {
-    if (element.id in duplicateItems) {
-      return false;
-    }
-    duplicateItems[element.id] = true;
-    return true;
-  });
-  return search;
-  
+    const searchWithNoDuplicate = [...new Set(search)];
+    return searchWithNoDuplicate;
 }
 
 ///////////////SEARCH IN APPLIANCES/////////////////////
@@ -148,16 +135,8 @@ function searchAppliance(arr, input) {
     });
   //REMOVE DUPLICATE
   let search = recipesAppliances;
-
-  const duplicateItems = [];
-  search = search.filter((element) => {
-    if (element.id in duplicateItems) {
-      return false;
-    }
-    duplicateItems[element.id] = true;
-    return true;
-  });
-  return search;
+  const searchWithNoDuplicate = [...new Set(search)];
+  return searchWithNoDuplicate;
 }
 
 ///////////////SEARCH IN DEVICE/////////////////////
@@ -184,16 +163,9 @@ function searchDevice(arr, input) {
    
   //REMOVE DUPLICATE
   let search = searchByDevices;
-  const duplicateItems = [];
-  search = search.filter((element) => {
-    if (element.id in duplicateItems) {
-      return false;
-    }
-    duplicateItems[element.id] = true;
-    return true;
-  });
-  return search;
+  const searchWithNoDuplicate = [...new Set(search)];
+  return searchWithNoDuplicate;
 }
 
 
-export { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice, algoTwo };
+export { searchQuery, displayListElement, searchIngredient, searchAppliance, searchDevice };
