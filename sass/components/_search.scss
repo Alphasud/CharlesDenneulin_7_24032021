@@ -109,15 +109,6 @@
       ::placeholder {
         opacity: 1;
       }
-      &.--appareil {
-        background-color: #68d9a4;
-      }
-      &.--ingredients {
-        background-color: #3282f7;
-      }
-      &.--ustenciles {
-        background-color: #ed6454;
-      }
     }
     &__label {
       width: 5rem;
@@ -158,10 +149,6 @@
           color: white;
           cursor: default;
           list-style: none;
-        }
-
-        &.--ingredients {
-          background-color: #3282f7;
         }
       }
     }
@@ -218,14 +205,12 @@
   cursor: pointer;
 }
 
-.--ingredients {
+.ingredients {
   background-color: #3282f7;
 }
-
-.--appareils {
+.appareils {
   background-color: #68d9a4;
 }
-
-.--ustenciles {
+.ustenciles {
   background-color: #ed6454;
 }

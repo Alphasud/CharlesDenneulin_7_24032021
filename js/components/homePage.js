@@ -38,12 +38,12 @@ displayElements()
 
 /////////LISTEN TO THE MAIN INPUT//////////
 const listIngredient = document.querySelector(
-  '.search__filter__list.--ingredients'
+  '.search__filter__list.ingredients'
 );
 const listAppliance = document.querySelector(
-  '.search__filter__list.--appareils'
+  '.search__filter__list.appareils'
 );
-const listDevice = document.querySelector('.search__filter__list.--ustenciles');
+const listDevice = document.querySelector('.search__filter__list.ustenciles');
 const tagSection = document.querySelector('.search__tags__ingredients');
 
 searchInput.addEventListener('input', (e) => {
@@ -118,12 +118,12 @@ const articleDevice = document.querySelector('.article-ustenciles');
 
 //////LISTEN TO THE INGREDIENT ADVANCED SEARCH BUTTON CLICK///////
 const filterElementIngredient = document.querySelector(
-  '.search__filter__element.--ingredients'
+  '.search__filter__element.ingredients'
 );
 
 filterElementIngredient.addEventListener('click', () => {
   const listIngr = document.querySelectorAll(
-    '.search__filter__list__item.--ingredients'
+    '.search__filter__list__item.ingredients'
   );
   if (listIngr.length > 0) {
     articleIngredient.classList.toggle('larger');
@@ -137,11 +137,11 @@ filterElementIngredient.addEventListener('click', () => {
 
 //////LISTEN TO THE APPLIANCES ADVANCED SEARCH BUTTON CLICK///////
 const filterElementAppliance = document.querySelector(
-  '.search__filter__element.--appareils'
+  '.search__filter__element.appareils'
 );
 filterElementAppliance.addEventListener('click', () => {
   const listApp = document.querySelectorAll(
-    '.search__filter__list__item.--appareils'
+    '.search__filter__list__item.appareils'
   );
   if (listApp.length > 0) {
     articleAppliance.classList.toggle('larger');
@@ -155,11 +155,11 @@ filterElementAppliance.addEventListener('click', () => {
 
 ///////LISTEN TO THE DEVICES ADVANCED SEARCH BUTTON CLICK///////
 const filterElementDevice = document.querySelector(
-  '.search__filter__element.--ustenciles'
+  '.search__filter__element.ustenciles'
 );
 filterElementDevice.addEventListener('click', () => {
   const listDev = document.querySelectorAll(
-    '.search__filter__list__item.--ustenciles'
+    '.search__filter__list__item.ustenciles'
   );
   if (listDev.length > 0) {
     articleDevice.classList.toggle('larger');
@@ -175,19 +175,19 @@ filterElementDevice.addEventListener('click', () => {
 
 //////////OBSERVE INGREDIENT LIST CLICKS////////////////
 const IngredientList = document.querySelector(
-  `.search__filter__list.--ingredients`
+  `.search__filter__list.ingredients`
 );
 
 const observerIngredients = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    `.search__filter__list__item.--ingredients`
+    `.search__filter__list__item.ingredients`
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
       ingredientTagsArray.push(item.innerText);
       ingredientTagsArray = removeDuplicate(ingredientTagsArray);
       const tagsDisplayed = ingredientTagsArray.map((element) => {
-        return `<span class='search__tags__item --ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+        return `<span class='search__tags__item ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
       }).join('');
 
     const tagSection = document.querySelector('.search__tags__ingredients');
@@ -224,11 +224,11 @@ observerIngredients.observe(IngredientList, { subtree: true, childList: true });
 
 //////////OBSERVE APPLIANCE LIST CLICKS////////////////
 const applianceList = document.querySelector(
-  `.search__filter__list.--appareils`
+  `.search__filter__list.appareils`
 );
 const observerAppliance = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    `.search__filter__list__item.--appareils`
+    `.search__filter__list__item.appareils`
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
@@ -236,7 +236,7 @@ const observerAppliance = new MutationObserver(() => {
       applianceTagsArray = removeDuplicate(applianceTagsArray);
       const tagsDisplayed = applianceTagsArray
         .map((element) => {
-          return `<span class='search__tags__item --appareils'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+          return `<span class='search__tags__item appareils'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
         })
         .join('');
 
@@ -275,11 +275,11 @@ observerAppliance.observe(applianceList, { subtree: true, childList: true });
 
 //////////OBSERVE DEVICES LIST CLICKS////////////////
 const deviceList = document.querySelector(
-  `.search__filter__list.--ustenciles`
+  `.search__filter__list.ustenciles`
 );
 const observerDevice = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    `.search__filter__list__item.--ustenciles`
+    `.search__filter__list__item.ustenciles`
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
@@ -288,7 +288,7 @@ const observerDevice = new MutationObserver(() => {
 
       const tagsDisplayed = deviceTagsArray
         .map((element) => {
-          return `<span class='search__tags__item --ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+          return `<span class='search__tags__item ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
         })
         .join('');
 

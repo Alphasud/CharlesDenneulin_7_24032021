@@ -64,20 +64,20 @@ function displayListElement(arr, type, input, name ) {
     const resultDisplayed = elementSearchResultWithoutDuplicate
       .map(
         (element) =>
-          `<li class='search__filter__list__item  --${name}'>${element}</li>`
+          `<li class='search__filter__list__item ${name}'>${element}</li>`
       )
       .join('');
     if (resultDisplayed.length > 0) {
       const listElement = document.querySelector(
-        `.search__filter__list.--${name}`
+        `.search__filter__list.${name}`
       );
       listElement.innerHTML = resultDisplayed;
       
     } else {
       const listElement = document.querySelector(
-        `.search__filter__list.--${name}`
+        `.search__filter__list.${name}`
       );
-      listElement.innerHTML = `<li class="search__filter__list__item__error --${name}">
+      listElement.innerHTML = `<li class="search__filter__list__item__error ${name}">
               Pas de résultats
             </li>`;
     }
@@ -87,12 +87,12 @@ function displayListElement(arr, type, input, name ) {
     const resultDisplayed = elementSearchResultWithoutDuplicate
       .map(
         (element) =>
-          `<li class='search__filter__list__item  --${name}'>${element}</li>`
+          `<li class='search__filter__list__item ${name}'>${element}</li>`
       )
       .join('');
 
     const listElement = document.querySelector(
-      `.search__filter__list.--${name}`
+      `.search__filter__list.${name}`
     );
     listElement.innerHTML = resultDisplayed;
     

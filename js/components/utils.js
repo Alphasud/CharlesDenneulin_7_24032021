@@ -62,7 +62,7 @@ function closeSearchFieldWhenUserClickElswhere() {
       if (!advancedIngredientSearch.contains(event.target)) {
         advancedIngredientSearch.classList.remove('larger');
         const searchFilterIngredients = document.querySelector(
-          '.search__filter__element.--ingredients'
+          '.search__filter__element.ingredients'
         );
         searchFilterIngredients.classList.remove('open');
       }
@@ -75,7 +75,7 @@ function closeSearchFieldWhenUserClickElswhere() {
       if (!advancedApplianceSearch.contains(event.target)) {
         advancedApplianceSearch.classList.remove('larger');
         const searchFilterAppliances = document.querySelector(
-          '.search__filter__element.--appareils'
+          '.search__filter__element.appareils'
         );
         searchFilterAppliances.classList.remove('open');
       }
@@ -88,7 +88,7 @@ function closeSearchFieldWhenUserClickElswhere() {
       if (!advancedDeviceSearch.contains(event.target)) {
         advancedDeviceSearch.classList.remove('larger');
         const searchFilterDevices = document.querySelector(
-          '.search__filter__element.--ustenciles'
+          '.search__filter__element.ustenciles'
         );
         searchFilterDevices.classList.remove('open');
       }
