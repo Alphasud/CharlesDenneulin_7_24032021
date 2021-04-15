@@ -175,6 +175,7 @@ body {
 .search__filter__list__item {
   flex-basis: 33%;
   position: relative;
+  margin-bottom: 0.2rem;
   display: block;
   color: white;
   text-align: left;
@@ -413,6 +414,11 @@ main {
     margin-left: 1rem;
     margin-right: 1rem;
   }
+
+  .search__filter__list__item {
+    flex-basis: 50%;
+    margin-bottom: 0.2rem;
+  }
 }
 @media screen and (max-width: 742px) {
   .result {
@@ -426,6 +432,11 @@ main {
     flex-basis: 30%;
     margin-left: 1rem;
     margin-right: 1rem;
+  }
+
+  .search__filter__list__item {
+    flex-basis: 50%;
+    margin-bottom: 0.2rem;
   }
 }
 @media screen and (max-width: 585px) {
@@ -458,6 +469,38 @@ main {
     flex-basis: 100%;
     margin-bottom: 0.2rem;
   }
+
+  .article-Ustenciles,
+.article-Appareils,
+.article-Ingredients {
+    margin-top: 1rem;
+    width: 12rem;
+    margin-right: 1rem;
+  }
+
+  .search__filter__list.--Ingredients {
+    top: 5rem;
+  }
+  .search__filter__list.--Appareils {
+    top: 5rem;
+  }
+  .search__filter__list.--Ustenciles {
+    top: 5rem;
+  }
+
+  .larger {
+    width: 40%;
+  }
+
+  .search__filter__element.open {
+    width: 100%;
+  }
+
+  .search__filter__element.open ~ .search__filter__list {
+    opacity: 1;
+    visibility: visible;
+    width: 40%;
+  }
 }
 @media screen and (max-width: 500px) {
   .search__filter {
@@ -468,6 +511,8 @@ main {
 .article-Appareils,
 .article-Ingredients {
     margin-top: 1rem;
+    width: 12rem;
+    margin-right: 1rem;
   }
 
   .search__filter__list.--Ingredients {
@@ -478,6 +523,20 @@ main {
   }
   .search__filter__list.--Ustenciles {
     top: 11rem;
+  }
+
+  .larger {
+    width: 50%;
+  }
+
+  .search__filter__element.open {
+    width: 100%;
+  }
+
+  .search__filter__element.open ~ .search__filter__list {
+    opacity: 1;
+    visibility: visible;
+    width: 50%;
   }
 }
 
