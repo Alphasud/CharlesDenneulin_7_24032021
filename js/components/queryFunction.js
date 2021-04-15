@@ -52,9 +52,7 @@ function displayListElement(arr, type, input, name ) {
         `.search__filter__list.--${name}`
       );
       listDevice.innerHTML = resultDisplayed;
-      const result = document.querySelectorAll(
-        `.search__filter__list__item.--${name}`
-      );
+      
     } else {
       const listDevice = document.querySelector(
         `.search__filter__list.--${name}`
@@ -77,9 +75,7 @@ function displayListElement(arr, type, input, name ) {
       `.search__filter__list.--${name}`
     );
     listDevice.innerHTML = resultDisplayed;
-    const result = document.querySelectorAll(
-      `.search__filter__list__item.--${name}`
-    );
+    
   }
   
 }

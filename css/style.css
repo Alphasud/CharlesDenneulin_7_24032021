@@ -67,6 +67,13 @@ body {
 }
 .search__input input::placeholder {
   font-size: 1.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search__input input:focus {
+  outline: 2px solid #ce5052;
+  -moz-outline-radius: 3px;
 }
 .search__tags {
   height: auto;
@@ -88,6 +95,7 @@ body {
 }
 .search__filter {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 2rem;
   justify-content: flex-start;
   position: relative;
@@ -369,6 +377,101 @@ main {
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 2rem -1rem 0 -1rem;
+}
+
+@media screen and (max-width: 880px) {
+  .search {
+    width: 100%;
+  }
+
+  .result {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .recipe {
+    flex-basis: 50%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media screen and (max-width: 800px) {
+  .result {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .recipe {
+    flex-basis: 47%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+@media screen and (max-width: 742px) {
+  .result {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .recipe {
+    max-width: 30rem;
+    min-width: 25rem;
+    flex-basis: 30%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+@media screen and (max-width: 585px) {
+  .header {
+    width: 100%;
+  }
+
+  .result {
+    justify-content: center;
+    width: 100%;
+    margin: 1rem 0 0 0;
+  }
+
+  .recipe {
+    max-width: 100%;
+    flex-basis: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .search__input {
+    width: 106%;
+  }
+
+  input {
+    padding-right: 5rem;
+  }
+
+  .search__filter__list__item {
+    flex-basis: 100%;
+    margin-bottom: 0.2rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .search__filter {
+    margin-top: 0;
+  }
+
+  .article-Ustenciles,
+.article-Appareils,
+.article-Ingredients {
+    margin-top: 1rem;
+  }
+
+  .search__filter__list.--Ingredients {
+    top: 5rem;
+  }
+  .search__filter__list.--Appareils {
+    top: 5rem;
+  }
+  .search__filter__list.--Ustenciles {
+    top: 11rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,90 @@
+@media screen and (max-width: 880px) {
+  .search {
+    width: 100%;
+  }
+  .result {
+    justify-content: space-around;
+    width: 100%;
+  }
+  .recipe {
+    flex-basis: 50%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .result {
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .recipe {
+    flex-basis: 47%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 742px) {
+  .result {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .recipe {
+    max-width: 30rem;
+    min-width: 25rem;
+    flex-basis: 30%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media screen and (max-width: 585px) {
+  .header {
+    width: 100%;
+  }
+  .result {
+    justify-content: center;
+    width: 100%;
+    margin: 1rem 0 0 0;
+  }
+  .recipe {
+    max-width: 100%;
+    flex-basis: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .search__input {
+    width: 106%;
+  }
+  input {
+    padding-right: 5rem;
+  }
+  .search__filter__list__item {
+    flex-basis: 100%;
+    margin-bottom: 0.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .search__filter {
+    margin-top: 0;
+  }
+  .article-Ustenciles,
+  .article-Appareils,
+  .article-Ingredients {
+    margin-top: 1rem;
+  }
+  .search__filter__list {
+    &.--Ingredients {
+      top: 5rem;
+    }
+    &.--Appareils {
+      top: 5rem;
+    }
+    &.--Ustenciles {
+      top: 11rem;
+    }
+  }
+}

@@ -1,6 +1,14 @@
+import { normalizeData } from './utils.js'
 //////////////THIS FUNCTION MAP THROUGH THE RECIPES ARRAY AND DISPLAY THEM///////////////
 function displayRecipe(array) {
-  const recipeResult = array
+  const arraySorted = array.sort(function (a, b) {
+    let x = normalizeData(a.name);
+    let y = normalizeData(b.name);
+    if (x > y) return 1;
+    if (x < y) return -1;
+    return 0;
+  });
+  const recipeResult = arraySorted
     .map((element) => {
       const { name } = element;
       const { time } = element;
@@ -19,7 +27,9 @@ function displayRecipe(array) {
           const quantity = quantityArray.filter((ele) => ele !== undefined);
           const unit = unitArray.filter((item) => item !== undefined);
 
-          return `<p><b>${ingredient}:</b> ${quantity} ${unit}</p>`;
+          return quantity.length < 1 && unit.length < 1
+            ? `<p><b>${ingredient}</b> ${quantity} ${unit}</p>`
+            : `<p><b>${ingredient}:</b> ${quantity} ${unit}</p>`;
         })
         .join('');
 

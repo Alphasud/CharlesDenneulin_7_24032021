@@ -21,10 +21,13 @@
       font-size: 1.4rem;
       &::placeholder {
         font-size: 1.4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       &:focus {
-        //outline: 2px solid $text-color-title;
-        //-moz-outline-radius: 3px;
+        outline: 2px solid $text-color-title;
+        -moz-outline-radius: 3px;
       }
     }
   }
@@ -56,6 +59,7 @@
 
   &__filter {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 2rem;
     justify-content: flex-start;
     position: relative;
