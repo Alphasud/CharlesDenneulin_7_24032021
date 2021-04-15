@@ -26,17 +26,17 @@ function reloadSearch(arr1, arr2, arr3, inputNormalized, globalSearch) {
           (elem) => elem.ingredient !== ingredient
         );
       }
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
 
       globalAppliance = globalSearch;
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      displayListElement(globalAppliance, 'appliance', '', 'appareils');
 
       device = globalSearch.flatMap((element) => element.devices);
       for (let i of arr3) {
         device = device.filter((element) => element !== i);
       }
       globalDevice = [{ devices: device }];
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
     });
   }
   if (arr2.length > 0) {
@@ -53,18 +53,18 @@ function reloadSearch(arr1, arr2, arr3, inputNormalized, globalSearch) {
           (elem) => elem.ingredient !== ingredient
         );
       }
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
 
       globalAppliance = globalSearch.flatMap((element => element.appliance));
       globalAppliance = globalAppliance.filter((elem) => elem !== element);
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      displayListElement(globalAppliance, 'appliance', '', 'appareils');
 
       device = globalSearch.flatMap((element) => element.devices);
       for (let i of arr3) {
         device = device.filter((element) => element !== i);
       }
       globalDevice = [{ devices: device }];
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
     });
   }
   if (arr3.length > 0) {
@@ -81,17 +81,17 @@ function reloadSearch(arr1, arr2, arr3, inputNormalized, globalSearch) {
           (elem) => elem.ingredient !== ingredient
         );
       }
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
 
       globalAppliance = globalSearch;
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      displayListElement(globalAppliance, 'appliance', '', 'appareils');
 
       device = globalSearch.flatMap((element) => element.devices);
       for (let i of arr3) {
         device = device.filter((element) => element !== i);
       }
       globalDevice = [{ devices: device }];
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
     });
 
   }
@@ -104,13 +104,13 @@ function reloadSearch(arr1, arr2, arr3, inputNormalized, globalSearch) {
     globalIngredient = globalIngredient.filter(
       (element) => element.ingredient !== inputNormalized
     );
-    displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+    displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
 
     globalAppliance = globalSearch;
-    displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+    displayListElement(globalAppliance, 'appliance', '', 'appareils');
 
     globalDevice = globalSearch;
-    displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+    displayListElement(globalDevice, 'devices', '', 'ustenciles');
   }
 
   return globalSearch;

@@ -33,17 +33,17 @@ function displayElements() {
   const advancedSearchField = new SearchField();
 
   const deviceAdvancedSearch = advancedSearchField.createSearchField(
-    'Ustenciles'
+    'ustenciles'
   );
   searchFilter.insertAdjacentHTML('afterbegin', deviceAdvancedSearch);
 
   const applianceAdvancedSearch = advancedSearchField.createSearchField(
-    'Appareils'
+    'appareils'
   );
   searchFilter.insertAdjacentHTML('afterbegin', applianceAdvancedSearch);
 
   const ingredientsAdvancedSearch = advancedSearchField.createSearchField(
-    'Ingredients'
+    'ingredients'
   );
   searchFilter.insertAdjacentHTML('afterbegin', ingredientsAdvancedSearch);
 
@@ -55,40 +55,40 @@ function displayElements() {
 ////////CLOSE EACH DROPDOWN MENUS WHEN USER CLICK ELESEWHERE///////
 function closeSearchFieldWhenUserClickElswhere() {
   const advancedIngredientSearch = document.querySelector(
-    '.article-Ingredients'
+    '.article-ingredients'
   );
   if (advancedIngredientSearch !== null) {
     document.addEventListener('click', function (event) {
       if (!advancedIngredientSearch.contains(event.target)) {
         advancedIngredientSearch.classList.remove('larger');
         const searchFilterIngredients = document.querySelector(
-          '.search__filter__element.--Ingredients'
+          '.search__filter__element.--ingredients'
         );
         searchFilterIngredients.classList.remove('open');
       }
     });
   }
 
-  const advancedApplianceSearch = document.querySelector('.article-Appareils');
+  const advancedApplianceSearch = document.querySelector('.article-appareils');
   if (advancedApplianceSearch !== null) {
     document.addEventListener('click', function (event) {
       if (!advancedApplianceSearch.contains(event.target)) {
         advancedApplianceSearch.classList.remove('larger');
         const searchFilterAppliances = document.querySelector(
-          '.search__filter__element.--Appareils'
+          '.search__filter__element.--appareils'
         );
         searchFilterAppliances.classList.remove('open');
       }
     });
   }
 
-  const advancedDeviceSearch = document.querySelector('.article-Ustenciles');
+  const advancedDeviceSearch = document.querySelector('.article-ustenciles');
   if (advancedDeviceSearch !== null) {
     document.addEventListener('click', function (event) {
       if (!advancedDeviceSearch.contains(event.target)) {
         advancedDeviceSearch.classList.remove('larger');
         const searchFilterDevices = document.querySelector(
-          '.search__filter__element.--Ustenciles'
+          '.search__filter__element.--ustenciles'
         );
         searchFilterDevices.classList.remove('open');
       }
