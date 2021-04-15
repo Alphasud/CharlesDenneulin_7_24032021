@@ -1,5 +1,7 @@
 # Projet 7 : Développez un algorithme de recherche en JavaScript.
 
+[Lien de déploiement](https://alphasud.github.io/CharlesDenneulin_7_24032021/)
+
 ## Scénario :
 
 Vous êtes freelance et vous venez d’être missionné par l’entreprise “Les petits plats” en temps que Développeur Front-end pour une mission de 3 mois.
