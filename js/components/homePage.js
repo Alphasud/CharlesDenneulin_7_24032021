@@ -92,6 +92,13 @@ const searchInputDevice = document.querySelector('#ustencilesInput');
 searchInputIngredient.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
+  globalIngredient = globalSearch.flatMap((element) => element.ingredients);
+
+  for (let i of ingredientTagsArray) {
+    globalIngredient = globalIngredient.filter(
+      (element) => element.ingredient !== i
+    );
+  }
   displayListElement(globalIngredient, 'ingredient', inputNormalized, 'ingredients');
 });
 
@@ -99,6 +106,9 @@ searchInputIngredient.addEventListener('input', (e) => {
 searchInputAppliance.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
+  for (let i of applianceTagsArray) {
+    globalAppliance = globalSearch.filter((element) => element.appliance !== i);
+  }
   displayListElement(globalAppliance, 'appliance', inputNormalized, 'appareils');
 });
 
@@ -107,6 +117,11 @@ searchInputAppliance.addEventListener('input', (e) => {
 searchInputDevice.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
+  let device = globalSearch.flatMap((element) => element.devices);
+  for (let i of deviceTagsArray) {
+    device = device.filter((element) => element !== i);
+  }
+  globalDevice = [{ devices: device }];
   displayListElement(globalDevice, 'devices', inputNormalized, 'ustenciles');
 });
 
