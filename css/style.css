@@ -149,6 +149,7 @@ body {
   width: 5rem;
   opacity: 1;
   visibility: visible;
+  text-transform: capitalize;
 }
 .search__filter__list {
   width: 12rem;
@@ -208,6 +209,9 @@ body {
   opacity: 1;
   visibility: visible;
   width: 100%;
+}
+.search__filter__element.open > .search__filter__input::placeholder {
+  text-transform: capitalize;
 }
 
 .search__filter__element.open > .search__filter__label {

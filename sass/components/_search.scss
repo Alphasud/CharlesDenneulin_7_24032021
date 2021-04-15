@@ -114,6 +114,7 @@
       width: 5rem;
       opacity: 1;
       visibility: visible;
+      text-transform: capitalize;
     }
     &__list {
       width: 12rem;
@@ -177,6 +178,9 @@
   opacity: 1;
   visibility: visible;
   width: 100%;
+  &::placeholder {
+    text-transform: capitalize;
+  }
 }
 
 .search__filter__element.open > .search__filter__label {
