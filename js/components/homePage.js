@@ -38,13 +38,13 @@ displayElements()
 
 /////////LISTEN TO THE MAIN INPUT//////////
 const listIngredient = document.querySelector(
-  '.search__filter__list.--Ingredients'
+  '.search__filter__list.ingredients'
 );
 const listAppliance = document.querySelector(
-  '.search__filter__list.--Appareils'
+  '.search__filter__list.appareils'
 );
-const listDevice = document.querySelector('.search__filter__list.--Ustenciles');
-const tagSection = document.querySelector('.search__tags__Ingredients');
+const listDevice = document.querySelector('.search__filter__list.ustenciles');
+const tagSection = document.querySelector('.search__tags__ingredients');
 
 searchInput.addEventListener('input', (e) => {
   const input = e.target.value;
@@ -66,13 +66,13 @@ searchInput.addEventListener('input', (e) => {
       globalIngredient = globalSearch.flatMap(
         (element) => element.ingredients
       );
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
 
       globalAppliance = globalSearch;
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      displayListElement(globalAppliance, 'appliance', '', 'appareils');
 
       globalDevice = globalSearch;
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
     }
   } else {
     resultSection.innerHTML = displayRecipe(recipes);
@@ -83,23 +83,30 @@ searchInput.addEventListener('input', (e) => {
 });
 
 
-const searchInputIngredient = document.querySelector('#IngredientsInput');
-const searchInputAppliance = document.querySelector('#AppareilsInput');
-const searchInputDevice = document.querySelector('#UstencilesInput');
+const searchInputIngredient = document.querySelector('#ingredientsInput');
+const searchInputAppliance = document.querySelector('#appareilsInput');
+const searchInputDevice = document.querySelector('#ustencilesInput');
 
 /////////LISTEN TO THE INGREDIENT ADVANCED SEARCH INPUT//////////
 
 searchInputIngredient.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  displayListElement(globalIngredient, 'ingredient', inputNormalized, 'Ingredients');
+  globalIngredient = globalSearch.flatMap((element) => element.ingredients);
+  for (let i of ingredientTagsArray) {
+    globalIngredient = globalIngredient.filter(
+      (element) => element.ingredient !== i
+    );
+  }
+  displayListElement(globalIngredient, 'ingredient', inputNormalized, 'ingredients');
 });
 
 ///////////LISTEN TO THE APPLIANCES ADVANCED SEARCH INPUT//////////
 searchInputAppliance.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  displayListElement(globalAppliance, 'appliance', inputNormalized, 'Appareils');
+  globalAppliance = globalSearch;
+  displayListElement(globalAppliance, 'appliance', inputNormalized, 'appareils');
 });
 
 /////////LISTEN TO THE DEVICES ADVANCED SEARCH INPUT////////////
@@ -107,23 +114,28 @@ searchInputAppliance.addEventListener('input', (e) => {
 searchInputDevice.addEventListener('input', (e) => {
   const input = e.target.value;
   const inputNormalized = normalizeData(input);
-  displayListElement(globalDevice, 'devices', inputNormalized, 'Ustenciles');
+  let device = globalSearch.flatMap((element) => element.devices);
+  for (let i of deviceTagsArray) {
+    device = device.filter((element) => element !== i);
+  }
+  globalDevice = [{ devices: device }];
+  displayListElement(globalDevice, 'devices', inputNormalized, 'ustenciles');
 });
 
-const articleIngredient = document.querySelector('.article-Ingredients');
-const articleAppliance = document.querySelector('.article-Appareils');
-const articleDevice = document.querySelector('.article-Ustenciles');
+const articleIngredient = document.querySelector('.article-ingredients');
+const articleAppliance = document.querySelector('.article-appareils');
+const articleDevice = document.querySelector('.article-ustenciles');
 
 ////////////////////////////////DROPDOWN BUTTON CLICK\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////LISTEN TO THE INGREDIENT ADVANCED SEARCH BUTTON CLICK///////
 const filterElementIngredient = document.querySelector(
-  '.search__filter__element.--Ingredients'
+  '.search__filter__element.ingredients'
 );
 
 filterElementIngredient.addEventListener('click', () => {
   const listIngr = document.querySelectorAll(
-    '.search__filter__list__item.--Ingredients'
+    '.search__filter__list__item.ingredients'
   );
   if (listIngr.length > 0) {
     articleIngredient.classList.toggle('larger');
@@ -137,11 +149,11 @@ filterElementIngredient.addEventListener('click', () => {
 
 //////LISTEN TO THE APPLIANCES ADVANCED SEARCH BUTTON CLICK///////
 const filterElementAppliance = document.querySelector(
-  '.search__filter__element.--Appareils'
+  '.search__filter__element.appareils'
 );
 filterElementAppliance.addEventListener('click', () => {
   const listApp = document.querySelectorAll(
-    '.search__filter__list__item.--Appareils'
+    '.search__filter__list__item.appareils'
   );
   if (listApp.length > 0) {
     articleAppliance.classList.toggle('larger');
@@ -155,11 +167,11 @@ filterElementAppliance.addEventListener('click', () => {
 
 ///////LISTEN TO THE DEVICES ADVANCED SEARCH BUTTON CLICK///////
 const filterElementDevice = document.querySelector(
-  '.search__filter__element.--Ustenciles'
+  '.search__filter__element.ustenciles'
 );
 filterElementDevice.addEventListener('click', () => {
   const listDev = document.querySelectorAll(
-    '.search__filter__list__item.--Ustenciles'
+    '.search__filter__list__item.ustenciles'
   );
   if (listDev.length > 0) {
     articleDevice.classList.toggle('larger');
@@ -175,12 +187,12 @@ filterElementDevice.addEventListener('click', () => {
 
 //////////OBSERVE INGREDIENT LIST CLICKS////////////////
 const IngredientList = document.querySelector(
-  `.search__filter__list.--Ingredients`
+  `.search__filter__list.ingredients`
 );
 
 const observerIngredients = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    `.search__filter__list__item.--Ingredients`
+    `.search__filter__list__item.ingredients`
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
@@ -188,10 +200,10 @@ const observerIngredients = new MutationObserver(() => {
       ingredientTagsArray = removeDuplicate(ingredientTagsArray);
       console.log(ingredientTagsArray);
       const tagsDisplayed = ingredientTagsArray.map((element) => {
-        return `<span class='search__tags__item --Ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+        return `<span class='search__tags__item ingredients'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
       }).join('');
 
-    const tagSection = document.querySelector('.search__tags__Ingredients');
+    const tagSection = document.querySelector('.search__tags__ingredients');
     tagSection.innerHTML = tagsDisplayed;
   
       const tagInput = normalizeData(item.innerText);
@@ -204,17 +216,17 @@ const observerIngredients = new MutationObserver(() => {
           (element) => element.ingredient !== i
         );
       }
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
       
       globalAppliance = globalSearch;
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      displayListElement(globalAppliance, 'appliance', '', 'appareils');
 
       let device = globalSearch.flatMap((element) => element.devices);
       for (let i of deviceTagsArray) {
         device = device.filter((element) => element !== i);
       }
       globalDevice = [{ devices: device }];
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
   });
   }
 
@@ -223,11 +235,11 @@ observerIngredients.observe(IngredientList, { subtree: true, childList: true });
 
 //////////OBSERVE APPLIANCE LIST CLICKS////////////////
 const applianceList = document.querySelector(
-  `.search__filter__list.--Appareils`
+  `.search__filter__list.appareils`
 );
 const observerAppliance = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    `.search__filter__list__item.--Appareils`
+    `.search__filter__list__item.appareils`
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
@@ -236,11 +248,11 @@ const observerAppliance = new MutationObserver(() => {
       console.log(applianceTagsArray);
       const tagsDisplayed = applianceTagsArray
         .map((element) => {
-          return `<span class='search__tags__item --Appareils'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+          return `<span class='search__tags__item appareils'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
         })
         .join('');
 
-      const tagSection = document.querySelector('.search__tags__Appareils');
+      const tagSection = document.querySelector('.search__tags__appareils');
       tagSection.innerHTML = tagsDisplayed;
 
       const tagInput = normalizeData(item.innerText);
@@ -252,14 +264,14 @@ const observerAppliance = new MutationObserver(() => {
           (element) => element.appliance !== i
         );
       }
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+      displayListElement(globalAppliance, 'appliance', '', 'appareils');
       
       let device = globalSearch.flatMap((element) => element.devices);
       for (let i of deviceTagsArray) {
         device = device.filter((element) => element !== i);
       }
       globalDevice = [{ devices: device }];
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
 
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
       for (let i of ingredientTagsArray) {
@@ -267,7 +279,7 @@ const observerAppliance = new MutationObserver(() => {
           (element) => element.ingredient !== i
         );
       }
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
   });
   }
 });
@@ -275,11 +287,11 @@ observerAppliance.observe(applianceList, { subtree: true, childList: true });
 
 //////////OBSERVE DEVICES LIST CLICKS////////////////
 const deviceList = document.querySelector(
-  `.search__filter__list.--Ustenciles`
+  `.search__filter__list.ustenciles`
 );
 const observerDevice = new MutationObserver(() => {
   const tags = document.querySelectorAll(
-    '.search__filter__list__item.--Ustenciles'
+    '.search__filter__list__item.ustenciles'
   );
   for (const item of tags) {
     item.addEventListener('click', () => {
@@ -288,11 +300,11 @@ const observerDevice = new MutationObserver(() => {
 
       const tagsDisplayed = deviceTagsArray
         .map((element) => {
-          return `<span class='search__tags__item --Ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
+          return `<span class='search__tags__item ustenciles'>${element}<i id="close" class="far fa-times-circle"></i></span>`;
         })
         .join('');
 
-      const tagSection = document.querySelector('.search__tags__Ustenciles');
+      const tagSection = document.querySelector('.search__tags__ustenciles');
       tagSection.innerHTML = tagsDisplayed;
 
       const tagInput = normalizeData(item.innerText);
@@ -304,7 +316,7 @@ const observerDevice = new MutationObserver(() => {
         device = device.filter((element) => element !== i);
       }
       globalDevice = [{ devices: device }];
-      displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+      displayListElement(globalDevice, 'devices', '', 'ustenciles');
       
       globalIngredient = globalSearch.flatMap((element) => element.ingredients);
       for (let i of ingredientTagsArray) {
@@ -312,10 +324,10 @@ const observerDevice = new MutationObserver(() => {
           (element) => element.ingredient !== i
         );
       }
-      displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+      displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
 
       globalAppliance = globalSearch;
-      displayListElement(globalAppliance, 'appliance', '', 'Appareils')
+      displayListElement(globalAppliance, 'appliance', '', 'appareils')
 
     });
   }
@@ -325,7 +337,7 @@ observerDevice.observe(deviceList, { subtree: true, childList: true });
 ////////////////////////////////////TAG LIST MANAGER\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 //////////////INGREDIENTS TAG MANAGEMENT///////////////
-  const ingredientsTagSection = document.querySelector('.search__tags__Ingredients');
+  const ingredientsTagSection = document.querySelector('.search__tags__ingredients');
   const ingredientTagObserver = new MutationObserver(() => {
     const tags = document.querySelectorAll('.search__tags__item');
     if (tags !== null) {
@@ -338,7 +350,7 @@ observerDevice.observe(deviceList, { subtree: true, childList: true });
             element => element !== tags[i].innerText
           );
           console.log(globalIngredient);
-          displayListElement(globalIngredient, 'ingredient', '', 'Ingredients');
+          displayListElement(globalIngredient, 'ingredient', '', 'ingredients');
           console.log(ingredientTagsArray);
 
           globalSearch = reloadSearch(
@@ -360,7 +372,7 @@ ingredientTagObserver.observe(ingredientsTagSection, {
 
 //////////////APPLIANCE TAG MANAGEMENT///////////////
 const applianceTagSection = document.querySelector(
-  '.search__tags__Appareils'
+  '.search__tags__appareils'
 );
 const applianceTagObserver = new MutationObserver(() => {
   const tags = document.querySelectorAll('.search__tags__item');
@@ -375,7 +387,7 @@ const applianceTagObserver = new MutationObserver(() => {
           (element) => element !== tags[i].innerText
         );
         console.log(globalAppliance);
-        displayListElement(globalAppliance, 'appliance', '', 'Appareils');
+        displayListElement(globalAppliance, 'appliance', '', 'appareils');
         console.log(applianceTagsArray);
 
         globalSearch = reloadSearch(
@@ -396,7 +408,7 @@ applianceTagObserver.observe(applianceTagSection, {
 
 
 //////////////DEVICES TAG MANAGEMENT///////////////
-const deviceTagSection = document.querySelector('.search__tags__Ustenciles');
+const deviceTagSection = document.querySelector('.search__tags__ustenciles');
 const deviceTagObserver = new MutationObserver(() => {
   const tags = document.querySelectorAll('.search__tags__item');
   if (tags !== null) {
@@ -409,7 +421,7 @@ const deviceTagObserver = new MutationObserver(() => {
           (element) => element !== tags[i].innerText
         );
         console.log(globalDevice);
-        displayListElement(globalDevice, 'devices', '', 'Ustenciles');
+        displayListElement(globalDevice, 'devices', '', 'ustenciles');
         console.log(deviceTagsArray);
 
         globalSearch = reloadSearch(

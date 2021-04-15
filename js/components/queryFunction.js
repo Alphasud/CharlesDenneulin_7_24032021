@@ -44,20 +44,20 @@ function displayListElement(arr, type, input, name ) {
     const resultDisplayed = deviceSearchResultWithoutDuplicate
       .map(
         (element) =>
-          `<li class='search__filter__list__item  --${name}'>${element}</li>`
+          `<li class='search__filter__list__item ${name}'>${element}</li>`
       )
       .join('');
     if (resultDisplayed.length > 0) {
       const listDevice = document.querySelector(
-        `.search__filter__list.--${name}`
+        `.search__filter__list.${name}`
       );
       listDevice.innerHTML = resultDisplayed;
       
     } else {
       const listDevice = document.querySelector(
-        `.search__filter__list.--${name}`
+        `.search__filter__list.${name}`
       );
-      listDevice.innerHTML = `<li class="search__filter__list__item__error --${name}">
+      listDevice.innerHTML = `<li class="search__filter__list__item__error ${name}">
               Pas de résultats
             </li>`;
     }
@@ -67,12 +67,12 @@ function displayListElement(arr, type, input, name ) {
     const resultDisplayed = deviceSearchResultWithoutDuplicate
       .map(
         (element) =>
-          `<li class='search__filter__list__item  --${name}'>${element}</li>`
+          `<li class='search__filter__list__item ${name}'>${element}</li>`
       )
       .join('');
 
     const listDevice = document.querySelector(
-      `.search__filter__list.--${name}`
+      `.search__filter__list.${name}`
     );
     listDevice.innerHTML = resultDisplayed;
     

@@ -79,8 +79,9 @@ body {
   height: auto;
   margin-top: 1rem;
 }
-.search__tags__Ingredients, .search__tags__Appareils, .search__tags__Ustenciles {
+.search__tags__ingredients, .search__tags__appareils, .search__tags__ustenciles {
   display: flex;
+  flex-wrap: wrap;
 }
 .search__tags__item {
   margin-top: 1rem;
@@ -143,15 +144,6 @@ body {
 .search__filter__input ::placeholder {
   opacity: 1;
 }
-.search__filter__input.--Appareil {
-  background-color: #68d9a4;
-}
-.search__filter__input.--Ingredients {
-  background-color: #3282f7;
-}
-.search__filter__input.--Ustenciles {
-  background-color: #ed6454;
-}
 .search__filter__label {
   width: 5rem;
   opacity: 1;
@@ -174,6 +166,7 @@ body {
 .search__filter__list__item {
   flex-basis: 33%;
   position: relative;
+  margin-bottom: 0.2rem;
   display: block;
   color: white;
   text-align: left;
@@ -191,13 +184,10 @@ body {
   cursor: default;
   list-style: none;
 }
-.search__filter__list__item.--Ingredients {
-  background-color: #3282f7;
-}
 
-.article-Ingredients,
-.article-Appareils,
-.article-Ustenciles {
+.article-ingredients,
+.article-appareils,
+.article-ustenciles {
   width: auto;
   transition: width 0.1s ease;
 }
@@ -245,15 +235,15 @@ body {
   cursor: pointer;
 }
 
-.--Ingredients {
+.ingredients {
   background-color: #3282f7;
 }
 
-.--Appareils {
+.appareils {
   background-color: #68d9a4;
 }
 
-.--Ustenciles {
+.ustenciles {
   background-color: #ed6454;
 }
 
@@ -379,6 +369,12 @@ main {
   margin: 2rem -1rem 0 -1rem;
 }
 
+.error-result {
+  margin-left: 1rem;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
 @media screen and (max-width: 880px) {
   .search {
     width: 100%;
@@ -462,21 +458,21 @@ main {
     margin-bottom: 0.2rem;
   }
 
-  .article-Ustenciles,
-.article-Appareils,
-.article-Ingredients {
+  .article-ustenciles,
+.article-appareils,
+.article-ingredients {
     margin-top: 1rem;
     width: 12rem;
     margin-right: 1rem;
   }
 
-  .search__filter__list.--Ingredients {
+  .search__filter__list.ingredients {
     top: 5rem;
   }
-  .search__filter__list.--Appareils {
+  .search__filter__list.appareils {
     top: 5rem;
   }
-  .search__filter__list.--Ustenciles {
+  .search__filter__list.ustenciles {
     top: 5rem;
   }
 
@@ -499,21 +495,21 @@ main {
     margin-top: 0;
   }
 
-  .article-Ustenciles,
-.article-Appareils,
-.article-Ingredients {
+  .article-ustenciles,
+.article-appareils,
+.article-ingredients {
     margin-top: 1rem;
     width: 12rem;
     margin-right: 1rem;
   }
 
-  .search__filter__list.--Ingredients {
+  .search__filter__list.ingredients {
     top: 5rem;
   }
-  .search__filter__list.--Appareils {
+  .search__filter__list.appareils {
     top: 5rem;
   }
-  .search__filter__list.--Ustenciles {
+  .search__filter__list.ustenciles {
     top: 11rem;
   }
 
