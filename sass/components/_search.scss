@@ -43,6 +43,7 @@
     &__Appareils,
     &__Ustenciles {
       display: flex;
+      flex-wrap: wrap;
     }
 
     &__item {

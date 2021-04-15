@@ -82,6 +82,7 @@ body {
 }
 .search__tags__Ingredients, .search__tags__Appareils, .search__tags__Ustenciles {
   display: flex;
+  flex-wrap: wrap;
 }
 .search__tags__item {
   margin-top: 1rem;

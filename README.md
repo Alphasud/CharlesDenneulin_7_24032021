@@ -1,6 +1,6 @@
 # Projet 7 : Développez un algorithme de recherche en JavaScript.
 
-[Lien de déploiement](https://alphasud.github.io/CharlesDenneulin_7_24032021/)
+[Cliquer ici pour accéder au déploiement.](https://alphasud.github.io/CharlesDenneulin_7_24032021/)
 
 ## Scénario :
 
